@@ -87,8 +87,12 @@ header.scrolled .bar nav{opacity:1;pointer-events:auto}
 .word{display:flex;align-items:flex-end;gap:calc(var(--F)*.22);user-select:none;text-decoration:none;color:var(--ink)}
 .hero .word{--F:min(156px,10.6vw);justify-content:center;padding:0 1.5rem;margin-bottom:8rem}
 .word .lc{font:500 var(--F)/1 var(--display);letter-spacing:-.045em;color:var(--ink);transform:translateY(calc(var(--F)*.03))}
-.word svg{height:calc(var(--F)*.52);width:auto;display:block;overflow:visible;margin-bottom:calc(var(--F)*.185);flex:none}
-.word svg.pm{height:calc(var(--F)*.52*8/6);margin-bottom:calc(var(--F)*(.185 - .52/3))}
+/* measured on TASA Orbiter 500: x-height = .502 em; with line-height 1 and the .03 em nudge the
+   baseline sits .1275 em above the line box bottom. The pixel letters are exactly one x-height
+   tall and stand on the baseline; the mark's frame does too, its tail hangs two cells below. */
+.word{--xh:.502;--bl:.1275}
+.word svg{height:calc(var(--F)*var(--xh));width:auto;display:block;overflow:visible;margin-bottom:calc(var(--F)*var(--bl));flex:none}
+.word svg.pm{height:calc(var(--F)*var(--xh)*8/6);margin-bottom:calc(var(--F)*(var(--bl) - var(--xh)/3))}
 .word svg rect{transform-box:fill-box;transform-origin:center}
 .word .lc{flex:none}
 .word svg rect{fill:var(--ink);transition:fill .5s}
