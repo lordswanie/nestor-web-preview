@@ -7,6 +7,12 @@
 <title>Nestor Analytics · az Intercept fejlesztője</title>
 <meta name="description" content="Magyar fejlesztőcsapat, az Intercept médiafigyelő fejlesztője. Megrendelésre egyedi szoftvert is fejlesztünk.">
 <link rel="icon" href="assets/nestor-mark.svg">
+<meta property="og:title" content="Nestor Analytics">
+<meta property="og:description" content="Magyar fejlesztőcsapat, az Intercept médiafigyelő fejlesztője. Megrendelésre egyedi szoftvert is fejlesztünk.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta name="theme-color" content="#ECE7F1">
+<script>document.documentElement.classList.add('js')</script>
 <style>
 @font-face{font-family:"TASA Orbiter";src:url(assets/fonts/TASAOrbiter-Regular.ttf);font-weight:400}
 @font-face{font-family:"TASA Orbiter";src:url(assets/fonts/TASAOrbiter-Medium.ttf);font-weight:500}
@@ -27,8 +33,8 @@
   --chip:rgba(170,161,182,.28);
   --ink:#121213;           /* offblack */
   --ink-2:#4A4552;
-  --ink-3:#6E6779;
-  --ink-4:#9A93A6;
+  --ink-3:#5F5869;
+  --ink-4:#7A7389;
   --blue:#3208EC;
   --blue-bright:#2B00FF;
   --blue-100:#EBE6FD;--blue-200:#D6CEFB;--blue-300:#C2B5F9;--blue-500:#9984F6;--blue-700:#7052F2;
@@ -49,6 +55,9 @@ body{background:var(--page);color:var(--ink);font:300 16px/1.5 var(--sans);-webk
 a{color:inherit}
 ::selection{background:var(--cyan);color:var(--blue)}
 .col{width:100%;max-width:var(--col);margin:0 auto;padding:0 1.5rem}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.card:focus-visible,.pcard:focus-visible{outline-offset:-2px}
+section[id],footer{scroll-margin-top:4.5rem}
 
 /* ---------- colour stripe ---------- */
 .stripe{display:grid;grid-template-columns:repeat(6,1fr);height:3px}
@@ -77,6 +86,7 @@ header.scrolled .bar nav{opacity:1;pointer-events:auto}
 .btn:hover .arr{transform:translateX(3px)}
 .btn.chip{background:var(--chip)}
 .btn.chip:hover{background:var(--blue);color:#fff}
+.btn.chip.on{background:var(--ink);color:#fff}
 .btn.signal{background:var(--cyan);color:var(--blue);font-weight:500}
 .btn.signal:hover{background:var(--blue);color:var(--cyan)}
 .btn.ghost{background:transparent}
@@ -108,9 +118,9 @@ header.scrolled .bar nav{opacity:1;pointer-events:auto}
 .hero .word svg rect.hot{transition:none}
 /* justified body text, with Hungarian hyphenation so the gaps stay even */
 .intro p,.lede,.card .more p,.step .body,.pbody .l,.pcard span.plain{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
-.intro p{font-size:1.1875rem;line-height:1.5rem;letter-spacing:.0095px;color:rgba(18,18,19,.55);font-weight:300}
+.intro p{font-size:1.1875rem;line-height:1.5;letter-spacing:.0095px;color:rgba(18,18,19,.64);font-weight:300}
 .intro p+p{margin-top:1.25rem}
-.intro p a{color:rgba(18,18,19,.8);text-underline-offset:3px;text-decoration-thickness:1px;transition:color .2s}
+.intro p a{color:var(--ink);text-underline-offset:3px;text-decoration-thickness:1px;transition:color .2s}
 .intro p a:hover{color:var(--blue)}
 .intro .links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.5rem}
 
@@ -130,14 +140,12 @@ section.block{padding:6rem 0}
 .card{background:var(--card);border-radius:var(--r);display:grid;grid-template-rows:auto 1fr auto;gap:1.5rem;min-height:9.6875rem;padding:20px 24px;text-decoration:none;cursor:pointer;border:0;text-align:left;font:inherit;color:inherit;width:100%;transition:background .25s}
 .card:hover,.card[aria-expanded=true]{background:var(--hover)}
 .card .top{display:flex;justify-content:space-between;align-items:flex-start}
-.num{font:400 12px/1.5 var(--mono);letter-spacing:-.01em;color:rgba(18,18,19,.3)}
-.thumbs{display:flex;gap:2px}
-.thumbs canvas{width:16px;height:16px;image-rendering:pixelated;display:block}
+.num{font:400 12px/1.5 var(--mono);letter-spacing:-.01em;color:rgba(18,18,19,.48)}
+.thumbs{display:flex;gap:4px}
+.thumbs canvas{width:24px;height:24px;image-rendering:pixelated;display:block;border-radius:var(--r)}
 .card h3{font:400 1.0625rem/1.25 var(--sans);letter-spacing:-.02em;align-self:end;transition:color .2s;margin-bottom:.5rem}
 .card:hover h3{color:var(--blue)}
-.card .sub{font-size:14.5px;line-height:1.5;color:var(--ink-3);margin-top:.35rem;max-width:34rem}
-.card .sub b{font:500 11.5px/1 var(--mono);text-transform:uppercase;color:var(--blue);margin-right:.45rem;letter-spacing:.02em}
-.meta{font:400 12px/1.3 var(--mono);letter-spacing:-.01em;text-transform:uppercase;color:rgba(18,18,19,.42);display:flex;gap:.5rem;align-items:center}
+.meta{font:400 12px/1.3 var(--mono);letter-spacing:-.01em;text-transform:uppercase;color:rgba(18,18,19,.56);display:flex;gap:.5rem;align-items:center}
 .meta .plus{margin-left:auto;font-size:15px;transition:transform .3s var(--ease);color:var(--ink-3)}
 .card[aria-expanded=true] .plus{transform:rotate(45deg)}
 .card .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
@@ -149,13 +157,13 @@ section.block{padding:6rem 0}
 /* principles timeline */
 .tl{position:relative;padding-left:0}
 .tl::before{content:"";position:absolute;left:19.5px;top:2.5rem;bottom:2.5rem;border-left:1px dashed var(--dash)}
-.step{position:relative;display:grid;grid-template-columns:2.5rem 1fr;gap:1.25rem;padding:0 0 9rem}
+.step{position:relative;display:grid;grid-template-columns:2.5rem 1fr;gap:1.25rem;padding:0 0 7rem}
 .step:last-child{padding-bottom:3rem}
 .badge{width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;background:var(--rule);font:400 12px/1 var(--mono);color:var(--ink-3);position:relative;z-index:1;border-radius:var(--r);transition:background .35s,color .35s}
 .step.active .badge{background:var(--cyan);color:var(--blue);font-weight:500}
 .step h4{font:400 16px/1.4 var(--mono);text-transform:uppercase;letter-spacing:-.01em;color:var(--ink-4);padding-top:.55rem;transition:color .35s}
 .step.active h4{color:var(--ink)}
-.step .body{font-size:1.0625rem;line-height:1.65;color:var(--ink-2);max-width:27rem;margin-top:1.25rem;min-height:7rem}
+.step .body{font-size:15px;line-height:1.65;color:var(--ink-2);max-width:28rem;margin-top:1rem;min-height:6rem}
 .step .body span{opacity:0;filter:blur(3px);transition:opacity .45s,filter .45s;display:inline}
 .step.active .body span{opacity:1;filter:none}
 
@@ -198,7 +206,7 @@ section.block{padding:6rem 0}
 .cpx b:nth-child(1){grid-area:1/1}.cpx b:nth-child(2){grid-area:2/2;background:var(--blue)}.cpx b:nth-child(3){display:none}
 .cprice{display:flex;align-items:baseline;gap:.5rem;margin:2.75rem 0 1rem}
 .cprice strong{font:500 4.25rem/1 var(--display);letter-spacing:-.04em}
-.cprice span{font:400 14px/1 var(--mono);color:var(--ink-3)}
+.cprice span{font:400 13px/1 var(--mono);color:var(--ink-3)}
 .cdesc{font-size:15px;line-height:1.6;color:var(--ink-2);max-width:30rem}
 .cmain{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding-bottom:1.75rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem}
 .route{width:272px;height:120px;display:block;shape-rendering:crispEdges}
@@ -229,7 +237,7 @@ section.block{padding:6rem 0}
 .spec dd{color:var(--ink);line-height:1.55}
 .lnote{display:block;margin-top:1rem;font:400 12px/1.5 var(--mono);text-transform:uppercase;color:var(--ink-3)}
 .stack{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.9rem}
-.stack span{font:400 11.5px/1 var(--mono);padding:.35rem .5rem;border-radius:var(--r);background:var(--page);color:var(--ink-2)}
+.stack span{font:400 12px/1 var(--mono);padding:.35rem .5rem;border-radius:var(--r);background:var(--page);color:var(--ink-2)}
 .pfoot{grid-column:2;display:flex;gap:.5rem;padding:16px 20px}
 
 /* ---------- Intercept block: a small copy of the interceptnews.ai hero (Blue field of 20 px tiles,
@@ -256,32 +264,40 @@ footer{margin-top:6rem}
 .frow:last-child{background-image:none}
 .flogo .ftag{margin-top:24px}
 .flogo .word{--F:min(46px,8.4vw)}
-.ftag{color:var(--ink-3);font-size:14.5px}
+.ftag{color:var(--ink-3);font-size:15px}
 .fcols{display:grid;grid-template-columns:2fr 3fr;gap:56px}
 .fcols h5{font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3);margin-bottom:1.25rem}
-.fcols ul{list-style:none;display:grid;gap:.5rem;font-size:14.5px}
+.fcols ul{list-style:none;display:grid;gap:.5rem;font-size:15px}
 .fcols ul a{text-decoration:none;transition:color .2s}
 .fcols ul a:hover{color:var(--blue)}
 .mailrow{display:flex}
-.mailrow a.addr{flex:1;display:flex;align-items:center;padding:0 .75rem;background:var(--white);border:1px solid var(--border);border-right:0;border-radius:var(--r) 0 0 var(--r);font-size:14px;text-decoration:none;color:var(--ink-2)}
+.mailrow a.addr{flex:1;display:flex;align-items:center;padding:0 .75rem;background:var(--white);border:1px solid var(--border);border-right:0;border-radius:var(--r) 0 0 var(--r);font-size:15px;text-decoration:none;color:var(--ink-2)}
 .mailrow .btn{background:var(--rule);border-radius:0 var(--r) var(--r) 0}
 .mailrow .btn:hover{background:var(--blue)}
-.fnote{font-size:12.5px;color:var(--ink-4);margin-top:.65rem}
+.fnote{font-size:13px;color:var(--ink-4);margin-top:.65rem}
 .flegal{display:flex;gap:1.25rem}
 .flegal a{text-decoration:none;color:inherit}
 .flegal a:hover{color:var(--blue)}
-.fbot{padding-top:24px;padding-bottom:24px;display:flex;justify-content:space-between;font:400 11.5px/1 var(--mono);text-transform:uppercase;color:var(--ink-3)}
+.fbot{padding-top:24px;padding-bottom:24px;display:flex;justify-content:space-between;font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3)}
 
 /* reveal on scroll */
-.rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rv.in{opacity:1;transform:none}
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
 
 @media (max-width:720px){
   .hero{padding:3.125rem 0 4rem}
   .fcols{gap:40px}
   .hero .word{margin-bottom:3.5rem;--F:9.9vw}
   .cons{padding:20px 24px 24px}
-  .bar nav{display:none}
+  /* phones: the nav becomes a swipeable row under the logo; short lines read better ragged */
+  .bar{flex-wrap:wrap;height:auto;row-gap:10px;padding:12px 16px}
+  .bar nav{width:100%;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;width:calc(100% + 32px)}
+  .bar nav::-webkit-scrollbar{display:none}
+  .bar nav ul{width:max-content}
+  .bar nav,.bar .mark{display:none}
+  header.scrolled .bar nav,header.scrolled .bar .mark{display:flex}
+  .intro p,.lede,.card .more p,.step .body,.pbody .l,.pcard span.plain{text-align:left;hyphens:manual}
+  section[id],footer{scroll-margin-top:6.5rem}
   .partners,.jobs{grid-template-columns:1fr}
   .pmore{grid-column:auto;flex-direction:column;align-items:stretch}
   .ix{padding:24px 22px 26px;min-height:30rem}
@@ -358,17 +374,6 @@ footer{margin-top:6rem}
 
   <div class="sep" aria-hidden="true"><span></span></div>
 
-  <!-- ======= principles ======= -->
-  <section class="block" id="elveink">
-    <div class="col">
-      <p class="title rv">Így dolgozunk.</p>
-      <p class="lede rv" style="margin-bottom:3.5rem">Ezek a saját szabályaink. Az Interceptnél és a megrendelők projektjein is ezek szerint dolgozunk.</p>
-      <div class="tl" id="tl"></div>
-    </div>
-  </section>
-
-  <div class="sep rev" aria-hidden="true"><span></span></div>
-
   <!-- ======= partners ======= -->
   <section class="block">
     <div class="col">
@@ -382,18 +387,34 @@ footer{margin-top:6rem}
     </div>
   </section>
 
+  <div class="sep rev" aria-hidden="true"><span></span></div>
+
+  <!-- ======= consulting ======= -->
+  <section class="block" id="tanacsadas">
+    <div class="col">
+      <p class="title rv">Tanácsadás.</p>
+      <div class="cons rv">
+        <div class="ctop"><span>Egyedi informatikai tanácsadás</span></div>
+        <div class="cmain">
+          <div>
+            <div class="cprice"><strong>199 €</strong><span>/ óra</span></div>
+            <p class="cdesc">Egyórás egyeztetés valakivel a csapatból, aki ilyen rendszereket épít. Akkor is segítünk, ha a saját fejlesztőid elakadtak, és nem tudják, merre tovább. Bármilyen informatikai csapatnak adunk útmutatást, legyen szó architektúráról, AI-bevezetésről, adatkezelésről vagy költségekről.</p>
+          </div>
+          <svg class="route" viewBox="0 0 34 15" aria-hidden="true"></svg>
+        </div>
+        <a class="btn signal cbtn" href="mailto:info@nestoranalytics.hu?subject=Tan%C3%A1csad%C3%A1s">Időpontot kérek <span class="arr">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <div class="sep" aria-hidden="true"><span></span></div>
 
-  <!-- ======= join ======= -->
-  <section class="block" id="csatlakozz">
+  <!-- ======= principles ======= -->
+  <section class="block" id="elveink">
     <div class="col">
-      <p class="title rv">Fejlesztőket keresünk.</p>
-      <p class="lede rv">Tapasztalt szoftvermérnököket keresünk, akik terveztek és üzemeltettek már éles rendszert. Önéletrajz nem kell. Írd meg, min dolgozol most, küldj egy projektet, amire büszke vagy, és pár mondatban azt is, ami mostanában foglalkoztat.</p>
-      <div class="jobs">
-        <a class="pcard rv" href="mailto:info@nestoranalytics.hu?subject=Jelentkez%C3%A9s&body=Min%20dolgozom%20most%3A%0A%0A%0AEgy%20projekt%2C%20amire%20b%C3%BCszke%20vagyok%20%28link%29%3A%0A%0A%0AAmi%20mostan%C3%A1ban%20foglalkoztat%3A%0A%0A"><b>Nyílt jelentkezés</b><span>Backend · gépi tanulás · platform · adat</span></a>
-        <div class="pcard rv"><b>Amivel dolgozunk</b><span class="plain">Python, Go, TypeScript, PostgreSQL, natív iOS és Android.</span></div>
-      </div>
-      <div class="after rv"><a class="btn" href="mailto:info@nestoranalytics.hu?subject=Jelentkez%C3%A9s&body=Min%20dolgozom%20most%3A%0A%0A%0AEgy%20projekt%2C%20amire%20b%C3%BCszke%20vagyok%20%28link%29%3A%0A%0A%0AAmi%20mostan%C3%A1ban%20foglalkoztat%3A%0A%0A">Írok nektek <span class="arr">→</span></a></div>
+      <p class="title rv">Így dolgozunk.</p>
+      <p class="lede rv" style="margin-bottom:3.5rem">Ezek a saját szabályaink. Az Interceptnél és a megrendelők projektjein is ezek szerint dolgozunk.</p>
+      <div class="tl" id="tl"></div>
     </div>
   </section>
 
@@ -423,21 +444,16 @@ footer{margin-top:6rem}
 
   <div class="sep" aria-hidden="true"><span></span></div>
 
-  <!-- ======= consulting ======= -->
-  <section class="block" id="tanacsadas">
+  <!-- ======= join ======= -->
+  <section class="block" id="csatlakozz">
     <div class="col">
-      <p class="title rv">Tanácsadás.</p>
-      <div class="cons rv">
-        <div class="ctop"><span>Egyedi informatikai tanácsadás</span></div>
-        <div class="cmain">
-          <div>
-            <div class="cprice"><strong>199 €</strong><span>/ óra</span></div>
-            <p class="cdesc">Egyórás egyeztetés valakivel a csapatból, aki ilyen rendszereket épít. Akkor is segítünk, ha a saját fejlesztőid elakadtak, és nem tudják, merre tovább. Bármilyen informatikai csapatnak adunk útmutatást, legyen szó architektúráról, AI-bevezetésről, adatkezelésről vagy költségekről.</p>
-          </div>
-          <svg class="route" viewBox="0 0 34 15" aria-hidden="true"></svg>
-        </div>
-        <a class="btn signal cbtn" href="mailto:info@nestoranalytics.hu?subject=Tan%C3%A1csad%C3%A1s">Időpontot kérek <span class="arr">→</span></a>
+      <p class="title rv">Fejlesztőket keresünk.</p>
+      <p class="lede rv">Tapasztalt szoftvermérnököket keresünk, akik terveztek és üzemeltettek már éles rendszert. Önéletrajz nem kell. Írd meg, min dolgozol most, küldj egy projektet, amire büszke vagy, és pár mondatban azt is, ami mostanában foglalkoztat.</p>
+      <div class="jobs">
+        <a class="pcard rv" href="mailto:info@nestoranalytics.hu?subject=Jelentkez%C3%A9s&body=Min%20dolgozom%20most%3A%0A%0A%0AEgy%20projekt%2C%20amire%20b%C3%BCszke%20vagyok%20%28link%29%3A%0A%0A%0AAmi%20mostan%C3%A1ban%20foglalkoztat%3A%0A%0A"><b>Nyílt jelentkezés</b><span>Backend · gépi tanulás · platform · adat</span></a>
+        <div class="pcard rv"><b>Amivel dolgozunk</b><span class="plain">Python, Go, TypeScript, PostgreSQL, natív iOS és Android.</span></div>
       </div>
+      <div class="after rv"><a class="btn" href="mailto:info@nestoranalytics.hu?subject=Jelentkez%C3%A9s&body=Min%20dolgozom%20most%3A%0A%0A%0AEgy%20projekt%2C%20amire%20b%C3%BCszke%20vagyok%20%28link%29%3A%0A%0A%0AAmi%20mostan%C3%A1ban%20foglalkoztat%3A%0A%0A">Írok nektek <span class="arr">→</span></a></div>
     </div>
   </section>
 </main>
@@ -570,38 +586,48 @@ document.querySelectorAll('.word').forEach(wd=>{
   if(!reduce)setInterval(()=>{if(document.hidden)return;t+=.12;dot++;draw()},140);
 })();
 
-/* ---------- pixel icons for the work cards (8×8, drawn at 16 px) ----------
-   k ink · b blue · c cyan · l light blue · . white */
+/* ---------- pixel icons for the work cards (12×12 cells, drawn at 24 px: 2 px per cell) ----------
+   k ink · b blue · c cyan · l light blue · p mid blue · g grey · . white */
 const ICONS={
- code:   ['........','..k.bk..','.k..b.k.','k..b...k','.k.b..k.','..kb.k..','........','........'],
- layout: ['kkkkkkkk','k..k...k','k..k...k','kkkkkkkk','k......k','k.bbbb.k','k......k','kkkkkkkk'],
- check:  ['........','.......b','......b.','.....b..','b...b...','.b.b....','..b.....','........'],
- server: ['kkkkkkkk','k.c....k','kkkkkkkk','k.c....k','kkkkkkkk','k.b....k','kkkkkkkk','........'],
- queue:  ['........','........','kk.kk.b.','kk.kk.bb','kk.kk.b.','........','........','........'],
- db:     ['.kkkkkk.','k......k','.kkkkkk.','k......k','.kkkkkk.','k......k','.kkkkkk.','........'],
- mail:   ['kkkkkkkk','kk....kk','k.k..k.k','k..bb..k','k......k','kkkkkkkk','........','........'],
- chat:   ['kkkkkkk.','k.....k.','k.b.b.k.','k.....k.','kkkkkkk.','.kk.....','.k......','........'],
- funnel: ['kkkkkkkk','.k....k.','..k..k..','...kk...','...bb...','...bb...','...bb...','........'],
- bars:   ['........','......b.','......b.','...k..b.','...k..b.','k..k..b.','k..k..b.','kkkkkkkk'],
- scatter:['.......b','..k...b.','.....b.k','....b...','.k.b..k.','..b.....','.b..k...','b.......'],
- matrix: ['bbll....','bbll....','llbbll..','llbbll..','..llbb..','..llbb..','........','........'],
- search: ['.kkkk...','k....k..','k.cc.k..','k.cc.k..','k....k..','.kkkk...','.....kk.','......kk'],
- globe:  ['..kkkk..','.k.kk.k.','k..kk..k','kkkkkkkk','k..kk..k','.k.kk.k.','..kkkk..','........'],
- doc:    ['kkkkk...','k...kk..','k...k.k.','k...kkkk','k.bbbb.k','k......k','k.bbbb.k','kkkkkkkk'],
- mic:    ['..kkkk..','..kbbk..','..kbbk..','k.kbbk.k','k.kkkk.k','.k....k.','..kkkk..','...kk...'],
- rack:   ['kkkkkkkk','k.....ck','kkkkkkkk','k.....ck','kkkkkkkk','k.....bk','kkkkkkkk','..k..k..'],
- term:   ['kkkkkkkk','k......k','k.c....k','k..c...k','k.c.bb.k','k......k','kkkkkkkk','........'],
- cloud:  ['........','...kk...','..k..k..','.k....kk','k......k','k......k','.kkkkkk.','..b.b.b.'],
- phone:  ['.kkkkk..','.k...k..','.k...k..','.k...k..','.k...k..','.kk.kk..','.kkkkk..','........'],
- browser:['kkkkkkkk','k......k','kkkkkkkk','k.bb...k','k......k','k.bbbb.k','kkkkkkkk','........'],
- app:    ['.kkkkk..','.kbbbk..','.kbbbk..','.kbbbk..','.k...k..','.kk.kk..','.kkkkk..','........'],
- bell:   ['...k....','..kkk...','.k...k..','.k...k..','.k...k..','kkkkkkk.','...b....','........']
+ // 01 design & development: a wireframe, code, a launch
+ plan:   ['............','.kkkkkkkkkk.','.kbbbbbbbbk.','.kkkkkkkkkk.','.k..k.....k.','.k..k.lll.k.','.k..k.....k.','.k..k.ll..k.','.k..k.....k.','.k..k.lll.k.','.kkkkkkkkkk.','............'],
+ code:   ['............','.......b....','...kk.bkk...','..kk..b.kk..','.kk...b..kk.','kk...b....kk','kk...b....kk','.kk..b...kk.','..kkb...kk..','...kk..kk...','....b.......','............'],
+ rocket: ['.....kk.....','....kbbk....','....kbbk....','...kbccbk...','...kbccbk...','...kbbbbk...','..kkbbbbkk..','.k.kbbbbk.k.','.k.kkkkkk.k.','....cccc....','.....cc.....','............'],
+ // 02 backend & distributed systems: a server, connected nodes, a message, a database
+ server: ['............','.kkkkkkkkkk.','.k........k.','.k.c.b.gg.k.','.k........k.','.kkkkkkkkkk.','.k........k.','.k.b.c.gg.k.','.k........k.','.kkkkkkkkkk.','..k......k..','............'],
+ nodes:  ['............','.kk......kk.','.kk......kk.','...p....p...','....p..p....','.....bb.....','.....bb.....','....p..p....','...p....p...','.kk......kk.','.kk......kk.','............'],
+ mail:   ['............','............','.kkkkkkkkkk.','.kk......kk.','.k.k....k.k.','.k..k..k..k.','.k...bb...k.','.k........k.','.kkkkkkkkkk.','............','............','............'],
+ db:     ['............','...kkkkkk...','.kkbbbbbbkk.','.k.kkkkkk.k.','.k........k.','.kk......kk.','.k.kkkkkk.k.','.k........k.','.kk......kk.','...kkkkkk...','............','............'],
+ // 03 language models in production: a conversation, a filter in front of the expensive model
+ chat:   ['............','.kkkkkkkkkk.','.k........k.','.k........k.','.k..b.b.c.k.','.k..b.b.c.k.','.k........k.','.kkkkkkkkkk.','..kk........','..k.........','............','............'],
+ funnel: ['............','.kkkkkkkkkk.','..kllllllk..','...kppppk...','....kbbk....','....kbbk....','....kbbk....','....kkkk....','............','.....cc.....','............','............'],
+ // 04 machine learning & analysis: a chart, a fit, a confusion matrix
+ bars:   ['............','.k..........','.k.......bb.','.k.......bb.','.k....pp.bb.','.k....pp.bb.','.k.ll.pp.bb.','.k.ll.pp.bb.','.k.ll.pp.bb.','.kkkkkkkkkk.','............','............'],
+ scatter:['............','.k......k.b.','.k.......b..','.k....k.b...','.k.....b....','.k.k..b.....','.k...b..k...','.k..b.......','.k.b..k.....','.kkkkkkkkkk.','............','............'],
+ matrix: null,
+ // 05 search & data collection: a lens, the web, a document, speech
+ search: ['............','..kkkk......','.kcc..k.....','.kc...k.....','.k....k.....','.k....k.....','..kkkkk.....','......kk....','.......kk...','........kk..','.........kk.','............'],
+ globe:  ['............','....kkkk....','..kk.bb.kk..','.k..b..b..k.','.k..b..b..k.','.kbbbbbbbbk.','.k..b..b..k.','.k..b..b..k.','..kk.bb.kk..','....kkkk....','............','............'],
+ doc:    ['............','.kkkkk......','.k...kk.....','.k...k.k....','.k...kkkk...','.k.bbbb..k..','.k.......k..','.k.lllll.k..','.k.......k..','.k.lll...k..','.kkkkkkkkk..','............'],
+ mic:    ['............','....kkkk....','....kbbk....','....kbbk....','..k.kbbk.k..','..k.kkkk.k..','..k......k..','...kk..kk...','.....kk.....','.....kk.....','...kkkkkk...','............'],
+ // 06 infrastructure & operations: a rack, a shell, the cloud
+ rack:   ['............','..kkkkkkkk..','..k.ggg.ck..','..kkkkkkkk..','..k.ggg.bk..','..kkkkkkkk..','..k.ggg.ck..','..kkkkkkkk..','..k......k..','..kkkkkkkk..','..k......k..','............'],
+ term:   ['............','.kkkkkkkkkk.','.kkkkkkkkkk.','.k........k.','.k.c......k.','.k..c.....k.','.k.c..bbb.k.','.k........k.','.k........k.','.kkkkkkkkkk.','............','............'],
+ cloud:  ['............','............','.....kkkk...','...kkllllk..','..klllllllk.','.kllllllllk.','.kllllllllk.','..kkkkkkkk..','............','............','............','............'],
+ // 07 web & mobile: a browser, a phone app, a notification
+ browser:['............','.kkkkkkkkkk.','.k.c.b.p..k.','.kkkkkkkkkk.','.k........k.','.k.bbbb...k.','.k........k.','.k.llllll.k.','.k.llll...k.','.k........k.','.kkkkkkkkkk.','............'],
+ phone:  ['............','...kkkkkk...','...kbbbbk...','...kbccbk...','...kbccbk...','...kbbbbk...','...kbbbbk...','...kbbbbk...','...kkkkkk...','...k.kk.k...','...kkkkkk...','............'],
+ bell:   ['............','.....kk..cc.','....kkkk.cc.','...kllllk...','...kllllk...','...kllllk...','..kllllllk..','.kllllllllk.','.kkkkkkkkkk.','.....bb.....','............','............']
 };
-const ICOL={k:'#121213',b:'#3208EC',c:'#3CF2FF',l:'#C2B5F9'};
-function thumb(name){const c=document.createElement('canvas');c.width=c.height=8;const x=c.getContext('2d');
-  x.fillStyle='#fff';x.fillRect(0,0,8,8);
+// the confusion matrix is easier to state as values: a strong diagonal, weaker neighbours
+ICONS.matrix=(()=>{const V=[['b','l','.','.','.'],['l','b','l','.','.'],['.','l','b','p','.'],['.','.','p','b','l'],['.','.','.','l','b']];
+  const g=Array.from({length:12},()=>Array(12).fill('.'));
+  V.forEach((row,y)=>row.forEach((v,x)=>{for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)g[1+y*2+dy][1+x*2+dx]=v}));
+  return g.map(r=>r.join(''))})();
+const ICOL={k:'#121213',b:'#3208EC',c:'#3CF2FF',l:'#C2B5F9',p:'#9984F6',g:'#CBC3D5'};
+function thumb(name){const c=document.createElement('canvas');c.width=c.height=12;const x=c.getContext('2d');
   ICONS[name].forEach((row,y)=>[...row].forEach((ch,i)=>{if(ICOL[ch]){x.fillStyle=ICOL[ch];x.fillRect(i,y,1,1)}}));
-  c.title='';return c}
+  c.setAttribute('aria-hidden','true');return c}
 
 /* ---------- Intercept block tile field (20 px tiles, 2 px gaps, faint white on Blue, slow drift) ---------- */
 (function(){
@@ -627,6 +653,19 @@ function thumb(name){const c=document.createElement('canvas');c.width=c.height=8
   let last=0;(function loop(ts){requestAnimationFrame(loop);if(!vis||ts-last<60)return;last=ts;t+=.03;draw()})(0);
 })();
 
+/* ---------- header nav: mark the section in view ---------- */
+(function(){
+  const links=[...document.querySelectorAll('.bar nav a[href^="#"]')];
+  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  function update(){
+    const y=innerHeight*.4;let cur=null;
+    map.forEach((a,id)=>{const el=document.getElementById(id);if(!el)return;const r=el.getBoundingClientRect();if(r.top<=y&&r.bottom>y)cur=a});
+    links.forEach(l=>{const on=l===cur;l.classList.toggle('on',on);on?l.setAttribute('aria-current','true'):l.removeAttribute('aria-current')});
+    const nav=document.querySelector('.bar nav');if(cur&&nav.scrollWidth>nav.clientWidth&&cur!==update.last){update.last=cur;nav.scrollTo({left:cur.offsetLeft-16,behavior:'smooth'})}
+  }
+  addEventListener('scroll',update,{passive:true});update();
+})();
+
 /* ---------- partner pixel field ---------- */
 (function(){
   const f=document.querySelector('.pfield');if(!f)return;
@@ -650,10 +689,10 @@ function thumb(name){const c=document.createElement('canvas');c.width=c.height=8
 const WORK=[
  ['Egyedi szoftvertervezés és -fejlesztés','Tervezés','Fejlesztés · üzemeltetés',
   'Az egészet mi visszük, a tervezéstől az üzemeltetésig. Az Interceptet is ugyanez a csapat építette és tartja karban, a forrásfigyeléstől a mobilappig.',
-  ['architektúra','adatmodellezés','code review','CI/CD'],['code','layout','check']],
+  ['architektúra','adatmodellezés','code review','CI/CD'],['plan','code','rocket']],
  ['Backend és elosztott rendszerek','Backend','Pipeline · API',
   'Üzenetsorokra épülő, aszinkron feldolgozórendszereket tervezünk, amelyek nagy forgalom mellett is kiszámíthatóan működnek. Egy hibás feladat nem állítja meg a többit, és később újra lehet futtatni. Az Intercept is így dolgozza fel a beérkező anyagot, éjjel-nappal.',
-  ['eseményvezérelt architektúra','idempotens feldolgozás','backpressure','PostgreSQL'],['server','queue','mail','db']],
+  ['eseményvezérelt architektúra','idempotens feldolgozás','backpressure','PostgreSQL'],['server','nodes','mail','db']],
  ['Nyelvi modellek éles üzemben','LLM','Integráció · költség',
   'Nyelvi modelleket építünk be éles rendszerekbe úgy, hogy a költség és a válaszidő kézben maradjon. A modell cserélhető, a hívások költsége műveletenként mérhető, és a drága modell csak oda kerül, ahol tényleg szükség van rá. Hosszan, önállóan futó ágenseket is fejlesztünk.',
   ['LLM-integráció','költségkontroll','modellfüggetlenség','ágensek'],['chat','funnel']],
@@ -668,7 +707,7 @@ const WORK=[
   ['infrastructure as code','zero-downtime deploy','megfigyelhetőség','konténerek'],['rack','term','cloud']],
  ['Web- és mobilalkalmazások','Kliens','Web · iOS · Android',
   'Webes felületet és natív iOS- és Android-alkalmazást is fejlesztünk, a backendtől a push értesítésig. Az Intercept felülete és mobilappja is nálunk készül.',
-  ['web','iOS','Android','push értesítés'],['browser','app','bell']]
+  ['web','iOS','Android','push értesítés'],['browser','phone','bell']]
 ];
 const cards=document.getElementById('cards');
 WORK.forEach(([t,k,m,d,stack,seeds],i)=>{
