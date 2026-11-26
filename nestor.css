@@ -677,3 +677,6 @@ section[id],article[id]{scroll-margin-top:calc(var(--nh-h,82px) + 12px)}
 .pick-ic{width:25px;height:25px}
 .ptab i{width:14px;height:14px}
 .ptab i canvas.atile{width:14px;height:14px}
+/* hero headline: a three-line sentence, sized so it stays three lines on desktop (reference H1 rhythm) */
+.mega{font-size:clamp(30px,calc((100vw - 72px) / 19.6),84px);line-height:1.02;letter-spacing:-.03em}   /* the longest line is 19 em wide */
+.mega .ln:nth-child(3)>span{transition-delay:.18s}
