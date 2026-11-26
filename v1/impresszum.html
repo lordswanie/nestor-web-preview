@@ -1,0 +1,474 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Impresszum és adatkezelés · Nestor Analytics</title>
+<meta name="description" content="A Nestor Analytics Kft. cégadatai, impresszuma és adatkezelési tájékoztatója.">
+<link rel="icon" href="assets/nestor-mark.svg">
+<meta property="og:title" content="Impresszum · Nestor Analytics">
+<meta property="og:description" content="Magyar fejlesztőcsapat, az Intercept médiafigyelő fejlesztője. Megrendelésre egyedi szoftvert is fejlesztünk.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="hu_HU">
+<meta name="theme-color" content="#ECE7F1">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+@font-face{font-family:"TASA Orbiter";src:url(assets/fonts/TASAOrbiter-Regular.ttf);font-weight:400}
+@font-face{font-family:"TASA Orbiter";src:url(assets/fonts/TASAOrbiter-Medium.ttf);font-weight:500}
+@font-face{font-family:"IBM Plex Sans";src:url(assets/fonts/IBMPlexSans-Light.ttf);font-weight:300}
+@font-face{font-family:"IBM Plex Sans";src:url(assets/fonts/IBMPlexSans-Regular.ttf);font-weight:400}
+@font-face{font-family:"IBM Plex Sans";src:url(assets/fonts/IBMPlexSans-Medium.ttf);font-weight:500}
+@font-face{font-family:"IBM Plex Mono";src:url(assets/fonts/IBMPlexMono-Regular.ttf);font-weight:400}
+@font-face{font-family:"IBM Plex Mono";src:url(assets/fonts/IBMPlexMono-Medium.ttf);font-weight:500}
+@font-face{font-family:"Barlow";src:url(assets/fonts/Barlow-Medium.ttf);font-weight:500}
+@font-face{font-family:"Barlow";src:url(assets/fonts/Barlow-SemiBold.ttf);font-weight:600}
+
+:root{
+  color-scheme:light;
+  --page:#ECE7F1;          /* N300 lavender — the page ground */
+  --card:#F6F3F8;          /* N200 */
+  --white:#fff;
+  --rule:#CBC3D5;          /* N400 */
+  --chip:rgba(170,161,182,.28);
+  --ink:#121213;           /* offblack */
+  --ink-2:#4A4552;
+  --ink-3:#5F5869;
+  --ink-4:#7A7389;
+  --blue:#3208EC;
+  --blue-bright:#2B00FF;
+  --blue-100:#EBE6FD;--blue-200:#D6CEFB;--blue-300:#C2B5F9;--blue-500:#9984F6;--blue-700:#7052F2;
+  --cyan:#3CF2FF;
+  --display:"TASA Orbiter",system-ui,sans-serif;
+  --sans:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --col:43rem;            /* 40rem of content + 1.5rem gutters, as labs.baseten.co --content */
+  --border:rgba(18,18,19,.12);
+  --dash:rgba(18,18,19,.26);
+  --hover:#F1EDF5;         /* between page and card, like Baseten #F0EFEB */
+  --r:2px;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--page);color:var(--ink);font:300 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+a{color:inherit}
+::selection{background:var(--cyan);color:var(--blue)}
+.col{width:100%;max-width:var(--col);margin:0 auto;padding:0 1.5rem}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.card:focus-visible,.pcard:focus-visible{outline-offset:-2px}
+section[id],footer{scroll-margin-top:4.5rem}
+
+/* ---------- colour stripe ---------- */
+.stripe{display:grid;grid-template-columns:repeat(6,1fr);height:3px}
+.stripe i:nth-child(1){background:var(--blue-300)}
+.stripe i:nth-child(2){background:var(--blue)}
+.stripe i:nth-child(3){background:var(--ink)}
+.stripe i:nth-child(4){background:var(--cyan)}
+.stripe i:nth-child(5){background:var(--blue-200)}
+.stripe i:nth-child(6){background:var(--rule)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:40;background:var(--page)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:3.5rem;padding:0 1.5rem;border-bottom:1px solid transparent;transition:border-color .3s}
+header.scrolled .bar{border-bottom-color:var(--border)}
+.bar .mark{--F:26px;display:flex;opacity:0;transform:translateY(-4px);transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none}
+header.scrolled .bar .mark{opacity:1;transform:none;pointer-events:auto}
+.bar nav ul{display:flex;gap:.35rem;list-style:none}
+.bar .btn,.intro .links .btn{padding:7.5px 12px}
+.bar nav{opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
+header.scrolled .bar nav{opacity:1;pointer-events:auto}
+
+/* ---------- buttons / chips ---------- */
+.btn{display:inline-flex;align-items:center;gap:.3125rem;padding:7.5px 20px;border-radius:var(--r);font:400 13px/1 var(--mono);letter-spacing:-.01em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--white);border:0;cursor:pointer;transition:background .2s,color .2s}
+.btn .arr{transition:transform .25s var(--ease)}
+.btn:hover{background:var(--blue);color:var(--white)}
+.btn:hover .arr{transform:translateX(3px)}
+.btn.chip{background:var(--chip)}
+.btn.chip:hover{background:var(--blue);color:#fff}
+.btn.chip.on{background:var(--ink);color:#fff}
+.btn.signal{background:var(--cyan);color:var(--blue);font-weight:500}
+.btn.signal:hover{background:var(--blue);color:var(--cyan)}
+.btn.ghost{background:transparent}
+.btn.ghost:hover{background:var(--chip);color:var(--ink)}
+
+/* ---------- hero ---------- */
+.hero{padding:12.5rem 0 10rem}
+.word{display:flex;align-items:flex-end;gap:calc(var(--F)*.22);user-select:none;text-decoration:none;color:var(--ink)}
+.hero .word{--F:min(156px,10.6vw);justify-content:center;padding:0 1.5rem;margin-bottom:8rem}
+.word .lc{font:500 var(--F)/1 var(--display);letter-spacing:-.045em;color:var(--ink);transform:translateY(calc(var(--F)*.03))}
+/* measured on TASA Orbiter 500: x-height = .502 em; with line-height 1 and the .03 em nudge the
+   baseline sits .1275 em above the line box bottom. The pixel letters are exactly one x-height
+   tall and stand on the baseline; the mark's frame does too, its tail hangs two cells below. */
+.word{--xh:.502;--bl:.1275}
+.word svg{height:calc(var(--F)*var(--xh));width:auto;display:block;overflow:visible;margin-bottom:calc(var(--F)*var(--bl));flex:none}
+.word svg.pm{height:calc(var(--F)*var(--xh)*8/6);margin-bottom:calc(var(--F)*(var(--bl) - var(--xh)/3))}
+.word svg rect{transform-box:fill-box;transform-origin:center}
+.word .lc{flex:none}
+.word svg rect{fill:var(--ink);transition:fill .5s}
+.word svg rect.on{opacity:1}
+.word svg rect.lit{fill:var(--blue)}
+.word svg rect.sig{fill:var(--cyan)}
+.word svg rect.c1{fill:var(--blue)}
+.word svg rect.c2{fill:var(--cyan)}
+.word svg rect.c3{fill:var(--blue-300)}
+.word svg rect.c4{fill:var(--blue-500)}
+.word svg rect.c5{fill:#9A93A6}
+.word svg rect.c6{fill:var(--blue-700)}
+.hero .word svg rect.hot{transition:none}
+/* justified body text, with Hungarian hyphenation so the gaps stay even */
+.intro p,.lede,.card .more p,.step .body,.pbody .l,.pcard span.plain{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
+.intro p{font-size:1.1875rem;line-height:1.5;letter-spacing:.0095px;color:rgba(18,18,19,.64);font-weight:300}
+.intro p+p{margin-top:1.25rem}
+.intro p a{color:var(--ink);text-underline-offset:3px;text-decoration-thickness:1px;transition:color .2s}
+.intro p a:hover{color:var(--blue)}
+.intro .links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.5rem}
+
+/* ---------- sections ---------- */
+section.block{padding:6rem 0}
+.title{font:500 1.25rem/1.2 var(--display);letter-spacing:-.03em;margin-bottom:1.25rem}
+.lede{color:var(--ink-3);margin:-.25rem 0 2rem;font-size:15px;line-height:1.6}
+/* section separator: a 1px dashed line that drifts sideways, as on labs.baseten.co */
+.sep{height:1.5rem;position:relative;overflow:hidden}
+.sep span{display:block;height:1px;margin-top:.75rem;width:200%;background-image:repeating-linear-gradient(to right,var(--dash) 0,var(--dash) .1875rem,transparent .1875rem,transparent .4375rem);animation:sepL 28s linear infinite}
+.sep.rev span{animation-name:sepR}
+@keyframes sepL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes sepR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+
+/* work cards */
+.cards{display:grid;gap:1px}
+.card{background:var(--card);border-radius:var(--r);display:grid;grid-template-rows:auto 1fr auto;gap:1.5rem;min-height:9.6875rem;padding:20px 24px;text-decoration:none;cursor:pointer;border:0;text-align:left;font:inherit;color:inherit;width:100%;transition:background .25s}
+.card:hover,.card[aria-expanded=true]{background:var(--hover)}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start}
+.num{font:400 12px/1.5 var(--mono);letter-spacing:-.01em;color:rgba(18,18,19,.48)}
+.thumbs{display:flex;gap:2px}
+.thumbs canvas{width:16px;height:16px;image-rendering:pixelated;display:block}
+.card h3{font:400 1.0625rem/1.25 var(--sans);letter-spacing:-.02em;align-self:end;transition:color .2s;margin-bottom:.5rem}
+.card:hover h3{color:var(--blue)}
+.meta{font:400 12px/1.3 var(--mono);letter-spacing:-.01em;text-transform:uppercase;color:rgba(18,18,19,.56);display:flex;gap:.5rem;align-items:center}
+.meta .plus{margin-left:auto;font-size:15px;transition:transform .3s var(--ease);color:var(--ink-3)}
+.card[aria-expanded=true] .plus{transform:rotate(45deg)}
+.card .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.card .more>div{overflow:hidden}
+.card .more p{font-size:15px;line-height:1.6;color:var(--ink-2);max-width:34rem;padding-top:.25rem}
+.card[aria-expanded=true] .more{grid-template-rows:1fr}
+.after{margin-top:1.25rem}
+
+/* principles timeline */
+.tl{position:relative;padding-left:0}
+.tl::before{content:"";position:absolute;left:19.5px;top:2.5rem;bottom:2.5rem;border-left:1px dashed var(--dash)}
+.step{position:relative;display:grid;grid-template-columns:2.5rem 1fr;gap:1.25rem;padding:0 0 7rem}
+.step:last-child{padding-bottom:3rem}
+.badge{width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;background:var(--rule);font:400 12px/1 var(--mono);color:var(--ink-3);position:relative;z-index:1;border-radius:var(--r);transition:background .35s,color .35s}
+.step.active .badge{background:var(--cyan);color:var(--blue);font-weight:500}
+.step h4{font:400 16px/1.4 var(--mono);text-transform:uppercase;letter-spacing:-.01em;color:var(--ink-4);padding-top:.55rem;transition:color .35s}
+.step.active h4{color:var(--ink)}
+.step .body{font-size:15px;line-height:1.65;color:var(--ink-2);max-width:28rem;margin-top:1rem;min-height:6rem}
+.step .body span{opacity:0;filter:blur(3px);transition:opacity .45s,filter .45s;display:inline}
+.step.active .body span{opacity:1;filter:none}
+
+/* partners */
+.partners{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
+.pcard{background:var(--card);border-radius:var(--r);padding:20px 24px;min-height:9.6875rem;display:flex;flex-direction:column;justify-content:space-between;transition:background .25s}
+.pcard:hover{background:var(--hover)}
+.pcard b{font:400 13px/1.35 var(--mono);text-transform:uppercase;letter-spacing:-.01em}
+.pcard span{font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-4)}
+.jobs{display:grid;grid-template-columns:1fr 1fr;gap:1px}
+/* partner cards: small black mark on top, name and field below */
+.plogo{display:flex;align-items:flex-start;height:40px}
+.plogo img{display:block;width:auto}
+.solid{filter:brightness(0)}
+.knock{filter:grayscale(1) contrast(12);mix-blend-mode:multiply}
+.crop{display:block;height:calc(var(--dh)*1px);width:calc(var(--dh)*var(--cw)/var(--ch)*1px);background-image:var(--src);background-repeat:no-repeat;
+  background-size:calc(var(--w)*var(--dh)/var(--ch)*1px) auto;background-position:calc(var(--x)*var(--dh)/var(--ch)*-1px) calc(var(--y)*var(--dh)/var(--ch)*-1px)}
+.pname{display:flex;flex-direction:column;gap:.5rem}
+.pcard .pname span{line-height:1.35}
+.pmore{grid-column:1/-1;flex-direction:row;align-items:flex-end;justify-content:space-between;gap:2rem}
+/* one square per organisation we have worked with: a quiet crowd, now and then one lights up */
+.pfield{display:grid;grid-auto-rows:6px;gap:4px;flex:none}
+.pfield i{display:block;width:6px;height:6px;border-radius:1px;background:rgba(18,18,19,.09);transition:background-color .6s}
+.pfield i.t1{background:rgba(18,18,19,.18)}
+.pfield i.t2{background:rgba(18,18,19,.36)}
+.pfield i.t3{background:var(--ink)}
+.pfield i.on{background:var(--blue);transition:none}
+.pfield i.sig{background:var(--cyan);transition:none}
+.pplus{display:grid;grid-template-columns:repeat(3,6px);grid-template-rows:repeat(3,6px);height:40px;align-content:start}
+.pplus b{background:var(--ink)}
+.pplus b:nth-child(1){grid-area:1/2}.pplus b:nth-child(2){grid-area:2/1}.pplus b:nth-child(3){grid-area:2/2;background:var(--blue)}.pplus b:nth-child(4){grid-area:2/3}.pplus b:nth-child(5){grid-area:3/2}
+.jobs a.pcard{text-decoration:none;color:inherit}
+.jobs a.pcard:hover b{color:var(--blue)}
+.pcard span.plain{font:300 14.5px/1.5 var(--sans);text-transform:none;color:var(--ink-2)}
+/* consulting card: one price, one line, one button */
+.cons{background:var(--white);border-radius:var(--r);margin:0 -1.5rem;padding:24px 36px 32px;position:relative}
+.ctop{display:flex;justify-content:space-between;align-items:center;font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3)}
+.cpx{display:grid;grid-template-columns:8px 8px;grid-template-rows:8px 8px;gap:0}
+.cpx b{background:var(--ink)}
+.cpx b:nth-child(1){grid-area:1/1}.cpx b:nth-child(2){grid-area:2/2;background:var(--blue)}.cpx b:nth-child(3){display:none}
+.cprice{display:flex;align-items:baseline;gap:.5rem;margin:2.75rem 0 1rem}
+.cprice strong{font:500 4.25rem/1 var(--display);letter-spacing:-.04em}
+.cprice span{font:400 13px/1 var(--mono);color:var(--ink-3)}
+.cdesc{font-size:15px;line-height:1.6;color:var(--ink-2);max-width:30rem}
+.cmain{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding-bottom:1.75rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem}
+.route{width:272px;height:120px;display:block;shape-rendering:crispEdges}
+.route rect{fill:var(--ink)}
+.route rect.t1{fill:rgba(18,18,19,.28)}
+.route rect.t2{fill:rgba(18,18,19,.55)}
+.route rect.ln{fill:var(--blue)}
+.route rect.dot{fill:var(--cyan)}
+.cbtn{width:100%;justify-content:space-between;padding:11px 20px}
+
+/* product block */
+.prod{max-width:58rem;margin:0 auto;padding:0 1.5rem}
+.panel{background:var(--white);border-radius:var(--r);overflow:hidden}
+.phead{background:var(--blue);color:#fff;position:relative;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:56px 36px}
+.phead .px{position:absolute;width:8px;height:8px;background:var(--cyan)}
+.phead .px.a{top:12px;left:12px}.phead .px.b{bottom:12px;right:12px}
+.phead h3{font:500 1.25rem/1.2 var(--display);letter-spacing:-.03em}
+.phead p{font-size:14px;color:rgba(255,255,255,.75);margin-top:.5rem}
+.phead .btn{background:#fff;color:var(--blue)}
+.phead .btn:hover{background:var(--cyan)}
+.pstripe{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;height:3px}
+.pstripe i:nth-child(2){background:var(--cyan)}.pstripe i:nth-child(5){background:var(--blue-300)}
+.pbody{display:grid;grid-template-columns:1fr 1fr}
+.pbody .l{padding:32px 36px;font-size:15px;line-height:1.65;color:var(--ink-2);border-right:1px solid var(--page)}
+.spec{display:grid;grid-template-columns:9rem 1fr}
+.spec dt,.spec dd{padding:1rem 1.25rem;border-bottom:1px solid var(--page);font-size:14.5px}
+.spec dt{font:400 12px/1.5 var(--mono);text-transform:uppercase;color:var(--ink-3);border-right:1px solid var(--page);padding-top:1.15rem}
+.spec dd{color:var(--ink);line-height:1.55}
+.lnote{display:block;margin-top:1rem;font:400 12px/1.5 var(--mono);text-transform:uppercase;color:var(--ink-3)}
+.stack{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.9rem}
+.stack span{font:400 12px/1 var(--mono);padding:.35rem .5rem;border-radius:var(--r);background:var(--page);color:var(--ink-2)}
+.pfoot{grid-column:2;display:flex;gap:.5rem;padding:16px 20px}
+
+/* ---------- Intercept block: a small copy of the interceptnews.ai hero (Blue field of 20 px tiles,
+   white wordmark, TASA headline, white pill with the pixel arrow), sized to this page's frame ---------- */
+.ix{position:relative;background:var(--blue);color:#fff;border-radius:var(--r);overflow:hidden;padding:32px 40px 40px;min-height:34rem;display:flex;flex-direction:column}
+.ix-field{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ix>*:not(.ix-field){position:relative}
+.ix-top{display:flex;align-items:center;justify-content:space-between}
+.ix-logo{height:20px;width:auto;display:block}
+.ix-site{font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:rgba(255,255,255,.75);text-decoration:none}
+.ix-site:hover{color:#fff}
+.ix-h{font:500 clamp(2.6rem,7.4vw,4.75rem)/.92 var(--display);letter-spacing:-.05em;margin:auto 0 0;padding-top:4rem}
+.ix-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-top:2.5rem}
+.ix-bottom p{font-size:15px;line-height:1.5;max-width:25rem;color:#fff}
+.ix-pill{display:inline-flex;align-items:center;gap:12px;flex:none;background:#fff;color:var(--blue);height:44px;padding:0 26px;border-radius:999px;font:600 15px/1 "Barlow",var(--sans);text-transform:uppercase;letter-spacing:.02em;text-decoration:none;transition:background .2s}
+.ix-pill:hover{background:var(--cyan)}
+.px-arrow{fill:currentColor}
+
+/* ---------- footer ---------- */
+footer{margin-top:6rem}
+.fgrid{border-top:1px solid var(--border);background:var(--card)}
+.fcol{max-width:var(--col);margin:0 auto;border-left:1px dashed var(--dash);border-right:1px dashed var(--dash)}
+.frow{padding:48px 24px;background-image:repeating-linear-gradient(to right,var(--dash) 0,var(--dash) .1875rem,transparent .1875rem,transparent .4375rem);background-size:100% 1px;background-repeat:no-repeat;background-position:bottom}
+.frow:last-child{background-image:none}
+.flogo .ftag{margin-top:24px}
+.flogo .word{--F:min(46px,8.4vw)}
+.ftag{color:var(--ink-3);font-size:15px}
+.fcols{display:grid;grid-template-columns:2fr 3fr;gap:56px}
+.fcols h5{font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3);margin-bottom:1.25rem}
+.fcols ul{list-style:none;display:grid;gap:.5rem;font-size:15px}
+.fcols ul a{text-decoration:none;transition:color .2s}
+.fcols ul a:hover{color:var(--blue)}
+.mailrow{display:flex}
+.mailrow a.addr{flex:1;display:flex;align-items:center;padding:0 .75rem;background:var(--white);border:1px solid var(--border);border-right:0;border-radius:var(--r) 0 0 var(--r);font-size:15px;text-decoration:none;color:var(--ink-2)}
+.mailrow .btn{background:var(--rule);border-radius:0 var(--r) var(--r) 0}
+.mailrow .btn:hover{background:var(--blue)}
+.fnote{font-size:13px;color:var(--ink-4);margin-top:.65rem}
+.flegal{display:flex;gap:1.25rem}
+.flegal a{text-decoration:none;color:inherit}
+.flegal a:hover{color:var(--blue)}
+.fbot{padding-top:24px;padding-bottom:24px;display:flex;justify-content:space-between;font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3)}
+
+/* reveal on scroll */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:720px){
+  .hero{padding:3.125rem 0 4rem}
+  .fcols{gap:40px}
+  .hero .word{margin-bottom:3.5rem;--F:9.9vw}
+  .cons{padding:20px 24px 24px}
+  /* phones: the nav becomes a swipeable row under the logo; short lines read better ragged */
+  .bar{flex-wrap:wrap;height:auto;row-gap:10px;padding:12px 16px}
+  .bar nav{width:100%;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;width:calc(100% + 32px)}
+  .bar nav::-webkit-scrollbar{display:none}
+  .bar nav ul{width:max-content}
+  .bar nav,.bar .mark{display:none}
+  header.scrolled .bar nav,header.scrolled .bar .mark{display:flex}
+  .intro p,.lede,.card .more p,.step .body,.pbody .l,.pcard span.plain{text-align:left;hyphens:manual}
+  section[id],footer{scroll-margin-top:6.5rem}
+  .partners,.jobs{grid-template-columns:1fr}
+  .pmore{grid-column:auto;flex-direction:column;align-items:stretch}
+  .ix{padding:24px 22px 26px;min-height:30rem}
+  .ix-bottom{flex-direction:column;align-items:flex-start;gap:1.25rem}
+  .cons{padding:1.4rem 1.5rem 1.5rem}
+  .cmain{grid-template-columns:1fr;gap:1.5rem}
+  .route{width:100%;height:auto;grid-row:1}
+  .pcard{min-height:6.5rem}
+  .phead{flex-direction:column;align-items:flex-start;padding:3rem 1.5rem}
+  .pbody{grid-template-columns:1fr}
+  .pbody .l{border-right:0;border-bottom:1px solid var(--page);padding:1.5rem}
+  .spec{grid-template-columns:7.5rem 1fr}
+  .pfoot{grid-column:1;flex-wrap:wrap}
+  .fcols{grid-template-columns:1fr}
+  .step{padding-bottom:5rem}
+  .intro p{font-size:1.0625rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .sep span{animation:none}
+
+  *{transition:none!important;scroll-behavior:auto!important}
+  .rv{opacity:1;transform:none}
+  .step .body span{opacity:1;filter:none}
+}
+</style>
+<style>
+.legal{padding:7rem 0 2rem}
+.legal h1{font:500 1.25rem/1.2 var(--display);letter-spacing:-.03em;margin-bottom:1.25rem}
+.legal h2{font:500 1.25rem/1.2 var(--display);letter-spacing:-.03em;margin:4.5rem 0 1.25rem}
+.legal h3{font:400 13px/1.35 var(--mono);text-transform:uppercase;letter-spacing:-.01em;margin:2rem 0 .6rem}
+.legal p,.legal li{font-size:15px;line-height:1.65;color:var(--ink-2)}
+.legal p+p{margin-top:.75rem}
+.legal ul{padding-left:1.1rem;margin-top:.5rem}
+.legal a{color:var(--ink);text-underline-offset:3px}
+.legal a:hover{color:var(--blue)}
+.ltab{display:grid;grid-template-columns:13rem 1fr;background:var(--card);border-radius:var(--r)}
+.ltab dt,.ltab dd{padding:14px 20px;border-bottom:1px solid var(--page)}
+.ltab dt{font:400 12px/1.6 var(--mono);text-transform:uppercase;letter-spacing:-.01em;color:var(--ink-3);border-right:1px solid var(--page)}
+.ltab dd{font-size:15px;line-height:1.5}
+.ltab dt:nth-last-of-type(1),.ltab dd:last-of-type{border-bottom:0}
+.todo{background:var(--cyan);color:var(--blue);padding:1px 6px;border-radius:2px;font:500 13px/1.5 var(--mono)}
+.updated{font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-4);margin-top:3.5rem}
+@media (max-width:720px){.legal{padding:4rem 0 1rem}.ltab{grid-template-columns:1fr}.ltab dt{border-right:0;border-bottom:0;padding-bottom:0}}
+</style>
+</head>
+<body>
+<header id="hdr" class="scrolled">
+  <div class="stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="bar">
+    <a class="mark word" href="index.html" aria-label="Nestor Analytics — vissza az elejére"><svg class="pm" aria-hidden="true"></svg><span class="lc" aria-hidden="true">nestor</span><svg class="pa" aria-hidden="true"></svg></a>
+    <nav aria-label="Fő navigáció"><ul>
+      <li><a class="btn chip" href="index.html#megoldasok">Fejlesztés</a></li>
+      <li><a class="btn chip" href="index.html#elveink">Elveink</a></li>
+      <li><a class="btn chip" href="index.html#tanacsadas">Tanácsadás</a></li>
+      <li><a class="btn chip" href="index.html#intercept">Intercept</a></li>
+      <li><a class="btn chip" href="index.html#csatlakozz">Csatlakozz</a></li>
+      <li><a class="btn chip" href="index.html#kapcsolat">Kapcsolat</a></li>
+    </ul></nav>
+  </div>
+</header>
+<main id="top">
+  <article class="legal col">
+    <h1>Impresszum.</h1>
+    <dl class="ltab">
+      <dt>Cégnév</dt><dd>Nestor Analytics Korlátolt Felelősségű Társaság</dd>
+      <dt>Rövid név</dt><dd>Nestor Analytics Kft.</dd>
+      <dt>Székhely</dt><dd>1021 Budapest, Völgy utca 35. Fsz. 2. ajtó</dd>
+      <dt>Cégjegyzékszám</dt><dd>01-09-457552</dd>
+      <dt>Nyilvántartó bíróság</dt><dd>Fővárosi Törvényszék Cégbírósága</dd>
+      <dt>Adószám</dt><dd>32680553-2-41</dd>
+      <dt>E-mail</dt><dd><a href="mailto:info@nestoranalytics.hu">info@nestoranalytics.hu</a></dd>
+      <dt>Weboldal</dt><dd>nestoranalytics.hu</dd>
+      <dt>Tárhelyszolgáltató</dt><dd><span class="todo">KITÖLTENDŐ: név, székhely, e-mail</span></dd>
+    </dl>
+    <p style="margin-top:1.25rem">Az adatokat az elektronikus kereskedelmi szolgáltatásokról szóló 2001. évi CVIII. törvény 4. §-a alapján tesszük közzé.</p>
+
+    <h2 id="adatkezeles">Adatkezelés.</h2>
+    <p>Ez a tájékoztató arról szól, milyen személyes adatot kezelünk, ha felkeresed ezt az oldalt vagy írsz nekünk. Az adatkezelő a Nestor Analytics Kft. (adatai fent). Adatvédelmi kérdésekben az <a href="mailto:info@nestoranalytics.hu">info@nestoranalytics.hu</a> címen érsz el minket.</p>
+
+    <h3>Sütik és mérés</h3>
+    <p>Az oldal nem használ sütiket, nem futtat látogatottságmérést, és nem tölt be kódot harmadik féltől. A betűtípusok és a képek a saját tárhelyünkről érkeznek.</p>
+
+    <h3>Technikai naplók</h3>
+    <p>A tárhelyszolgáltató a biztonságos működéshez technikai naplót vezethet (IP-cím, időpont, lekért oldal). Ezt jogos érdek alapján kezeli [GDPR 6. cikk (1) f)], és a szolgáltató szabályai szerint törli.</p>
+
+    <h3>Kapcsolatfelvétel e-mailben</h3>
+    <p>Ha írsz nekünk (bemutatót, tanácsadást vagy fejlesztést kérsz), a nevedet, e-mail-címedet, a cégedet és az üzenet tartalmát kezeljük, hogy válaszoljunk és ajánlatot adjunk. Jogalap: a szerződéskötést megelőző lépések [GDPR 6. cikk (1) b)], illetve jogos érdekünk a megkeresések megválaszolásához [6. cikk (1) f)]. A levelezést az ügy lezárása után egy évig őrizzük meg. Ha szerződés jön létre, a szerződéshez kapcsolódó iratokat a számviteli törvény szerinti nyolc évig tartjuk meg.</p>
+
+    <h3>Jelentkezés</h3>
+    <p>Ha jelentkezel hozzánk, a küldött anyagokat (bemutatkozás, linkek, projektek) a kiválasztás lezárásáig kezeljük, a hozzájárulásod alapján [GDPR 6. cikk (1) a)]. Ha nem tudunk ajánlatot tenni, az anyagaidat töröljük, kivéve, ha külön hozzájárulsz, hogy legfeljebb egy évig megtartsuk őket későbbi lehetőségekhez.</p>
+
+    <h3>Adatfeldolgozók</h3>
+    <p>Az e-mailjeinket külső levelezőszolgáltató kezeli adatfeldolgozóként: <span class="todo">KITÖLTENDŐ: szolgáltató neve, székhelye</span>. Személyes adatot nem adunk el, és nem adunk át harmadik félnek marketingcélra.</p>
+
+    <h3>Jogaid</h3>
+    <p>Kérheted, hogy hozzáférj a rólad kezelt adatokhoz, kijavítsuk vagy töröljük őket, korlátozzuk a kezelésüket, vagy géppel olvasható formában kiadjuk őket. Tiltakozhatsz a jogos érdeken alapuló adatkezelés ellen, és a hozzájárulásodat bármikor visszavonhatod. Kérésedre egy hónapon belül válaszolunk.</p>
+    <p>Panasszal a Nemzeti Adatvédelmi és Információszabadság Hatósághoz fordulhatsz (1055 Budapest, Falk Miksa utca 9–11., <a href="mailto:ugyfelszolgalat@naih.hu">ugyfelszolgalat@naih.hu</a>, <a href="https://naih.hu" target="_blank" rel="noopener">naih.hu</a>), vagy bírósághoz, a lakóhelyed szerinti törvényszék előtt is.</p>
+
+    <h2 id="szerzoi-jog">Szerzői jog.</h2>
+    <p>Az oldal szövegei, grafikái és a Nestor Analytics, valamint az Intercept arculati elemei a Nestor Analytics Kft. tulajdonában vannak. Előzetes írásbeli engedélyünk nélkül nem használhatók fel. A partnereink neve és logója a tulajdonosaiké, azokat az ő hozzájárulásukkal tüntetjük fel.</p>
+
+    <p class="updated">Hatályos: 2026. november 26.</p>
+  </article>
+</main>
+<!-- ======= footer ======= -->
+<footer id="kapcsolat">
+  <div class="stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="fgrid">
+    <div class="fcol">
+      <div class="frow flogo"><span class="word" role="img" aria-label="Nestor Analytics"><svg class="pm" aria-hidden="true"></svg><span class="lc" aria-hidden="true">nestor</span><svg class="pa" aria-hidden="true"></svg></span><p class="ftag">Mi fejlesztjük az Interceptet.</p></div>
+      <div class="frow fcols">
+        <div>
+          <h5>A cég</h5>
+          <ul>
+            <li><a href="index.html#megoldasok">Fejlesztés</a></li>
+            <li><a href="index.html#elveink">Elveink</a></li>
+            <li><a href="index.html#tanacsadas">Tanácsadás</a></li>
+            <li><a href="index.html#intercept">Intercept</a></li>
+            <li><a href="index.html#csatlakozz">Csatlakozz</a></li>
+            <li><a href="https://interceptnews.ai" target="_blank" rel="noopener">interceptnews.ai ↗</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Beszéljünk</h5>
+          <div class="mailrow">
+            <a class="addr" href="mailto:info@nestoranalytics.hu">info@nestoranalytics.hu</a>
+            <a class="btn" href="mailto:info@nestoranalytics.hu">Írok <span class="arr">→</span></a>
+          </div>
+          <p class="fnote">Általában egy munkanapon belül válaszolunk.</p>
+        </div>
+      </div>
+      <div class="frow fbot"><span>© 2026 Nestor Analytics Kft.</span><span class="flegal"><a href="impresszum.html">Impresszum</a><a href="impresszum.html#adatkezeles">Adatkezelés</a></span></div>
+    </div>
+  </div>
+</footer>
+<script>
+/* ---------- pixel wordmark ---------- */
+const G={
+ A:["01110","10001","10001","11111","10001","10001"],
+ N:["10001","11001","10101","10011","10001","10001"],
+ L:["10000","10000","10000","10000","10000","11111"],
+ Y:["10001","10001","01010","00100","00100","00100"],
+ T:["11111","00100","00100","00100","00100","00100"],
+ I:["111","010","010","010","010","111"],
+ C:["01111","10000","10000","10000","10000","01111"],
+ S:["01111","10000","01110","00001","00001","11110"]
+};
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const NS='http://www.w3.org/2000/svg';
+/* The mark is the original Nestor logo, unchanged. Its artwork is already a pixel grid:
+   with s = frame stroke, the frame is 6s × 6s with a 4s hole, the tail is a 2s square hanging
+   diagonally off the bottom-right corner, and the small square is 1s, at column 8, row 5.
+   The letters use the same cell, 6 rows tall, so the frame is exactly the x-height. */
+const MARK=[];
+const RING=[];for(let x=0;x<6;x++)RING.push([x,0]);for(let y=1;y<6;y++)RING.push([5,y]);for(let x=4;x>=0;x--)RING.push([x,5]);for(let y=4;y>0;y--)RING.push([0,y]);
+RING.forEach(([x,y])=>MARK.push([x,y,1,'ring']));
+MARK.push([6,6,2,'tail']);MARK.push([8,5,1,'emit']);
+function cellsFor(word){const out=[];let x=0;
+  for(const ch of word){const g=G[ch];g.forEach((row,y)=>[...row].forEach((b,i)=>{if(b==='1')out.push([x+i,y,1])}));x+=g[0].length+1}
+  return {cells:out,w:x-1,h:6}}
+function draw(svg,cells,w,h){const rs=[];
+  cells.forEach(([x,y,s,c])=>{const r=document.createElementNS(NS,'rect');
+    r.setAttribute('x',x-.03);r.setAttribute('y',y-.03);r.setAttribute('width',s+.06);r.setAttribute('height',s+.06);
+    if(c)r.classList.add(c);svg.appendChild(r);rs.push(r)});
+  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);return rs}
+const AN=cellsFor('ANALYTICS');
+document.querySelectorAll('.word').forEach(wd=>{
+  wd._m=draw(wd.querySelector('.pm'),MARK,9,8);
+  wd._a=draw(wd.querySelector('.pa'),AN.cells,AN.w,AN.h);
+});
+
+</script>
+</body>
+</html>

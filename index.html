@@ -13,742 +13,275 @@
 <meta property="og:locale" content="hu_HU">
 <meta name="theme-color" content="#ECE7F1">
 <script>document.documentElement.classList.add('js')</script>
-<style>
-@font-face{font-family:"TASA Orbiter";src:url(assets/fonts/TASAOrbiter-Regular.ttf);font-weight:400}
-@font-face{font-family:"TASA Orbiter";src:url(assets/fonts/TASAOrbiter-Medium.ttf);font-weight:500}
-@font-face{font-family:"IBM Plex Sans";src:url(assets/fonts/IBMPlexSans-Light.ttf);font-weight:300}
-@font-face{font-family:"IBM Plex Sans";src:url(assets/fonts/IBMPlexSans-Regular.ttf);font-weight:400}
-@font-face{font-family:"IBM Plex Sans";src:url(assets/fonts/IBMPlexSans-Medium.ttf);font-weight:500}
-@font-face{font-family:"IBM Plex Mono";src:url(assets/fonts/IBMPlexMono-Regular.ttf);font-weight:400}
-@font-face{font-family:"IBM Plex Mono";src:url(assets/fonts/IBMPlexMono-Medium.ttf);font-weight:500}
-@font-face{font-family:"Barlow";src:url(assets/fonts/Barlow-Medium.ttf);font-weight:500}
-@font-face{font-family:"Barlow";src:url(assets/fonts/Barlow-SemiBold.ttf);font-weight:600}
-
-:root{
-  color-scheme:light;
-  --page:#ECE7F1;          /* N300 lavender — the page ground */
-  --card:#F6F3F8;          /* N200 */
-  --white:#fff;
-  --rule:#CBC3D5;          /* N400 */
-  --chip:rgba(170,161,182,.28);
-  --ink:#121213;           /* offblack */
-  --ink-2:#4A4552;
-  --ink-3:#5F5869;
-  --ink-4:#7A7389;
-  --blue:#3208EC;
-  --blue-bright:#2B00FF;
-  --blue-100:#EBE6FD;--blue-200:#D6CEFB;--blue-300:#C2B5F9;--blue-500:#9984F6;--blue-700:#7052F2;
-  --cyan:#3CF2FF;
-  --display:"TASA Orbiter",system-ui,sans-serif;
-  --sans:"IBM Plex Sans",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace;
-  --col:43rem;            /* 40rem of content + 1.5rem gutters, as labs.baseten.co --content */
-  --border:rgba(18,18,19,.12);
-  --dash:rgba(18,18,19,.26);
-  --hover:#F1EDF5;         /* between page and card, like Baseten #F0EFEB */
-  --r:2px;
-  --ease:cubic-bezier(.2,.7,.2,1);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--page);color:var(--ink);font:300 16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
-a{color:inherit}
-::selection{background:var(--cyan);color:var(--blue)}
-.col{width:100%;max-width:var(--col);margin:0 auto;padding:0 1.5rem}
-:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
-.card:focus-visible,.pcard:focus-visible{outline-offset:-2px}
-section[id],footer{scroll-margin-top:4.5rem}
-
-/* ---------- colour stripe ---------- */
-.stripe{display:grid;grid-template-columns:repeat(6,1fr);height:3px}
-.stripe i:nth-child(1){background:var(--blue-300)}
-.stripe i:nth-child(2){background:var(--blue)}
-.stripe i:nth-child(3){background:var(--ink)}
-.stripe i:nth-child(4){background:var(--cyan)}
-.stripe i:nth-child(5){background:var(--blue-200)}
-.stripe i:nth-child(6){background:var(--rule)}
-
-/* ---------- header ---------- */
-header{position:sticky;top:0;z-index:40;background:var(--page)}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:3.5rem;padding:0 1.5rem;border-bottom:1px solid transparent;transition:border-color .3s}
-header.scrolled .bar{border-bottom-color:var(--border)}
-.bar .mark{--F:26px;display:flex;opacity:0;transform:translateY(-4px);transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none}
-header.scrolled .bar .mark{opacity:1;transform:none;pointer-events:auto}
-.bar nav ul{display:flex;gap:.35rem;list-style:none}
-.bar .btn,.intro .links .btn{padding:7.5px 12px}
-.bar nav{opacity:0;transition:opacity .35s var(--ease);pointer-events:none}
-header.scrolled .bar nav{opacity:1;pointer-events:auto}
-
-/* ---------- buttons / chips ---------- */
-.btn{display:inline-flex;align-items:center;gap:.3125rem;padding:7.5px 20px;border-radius:var(--r);font:400 13px/1 var(--mono);letter-spacing:-.01em;text-transform:uppercase;text-decoration:none;color:var(--ink);background:var(--white);border:0;cursor:pointer;transition:background .2s,color .2s}
-.btn .arr{transition:transform .25s var(--ease)}
-.btn:hover{background:var(--blue);color:var(--white)}
-.btn:hover .arr{transform:translateX(3px)}
-.btn.chip{background:var(--chip)}
-.btn.chip:hover{background:var(--blue);color:#fff}
-.btn.chip.on{background:var(--ink);color:#fff}
-.btn.signal{background:var(--cyan);color:var(--blue);font-weight:500}
-.btn.signal:hover{background:var(--blue);color:var(--cyan)}
-.btn.ghost{background:transparent}
-.btn.ghost:hover{background:var(--chip);color:var(--ink)}
-
-/* ---------- hero ---------- */
-.hero{padding:12.5rem 0 10rem}
-.word{display:flex;align-items:flex-end;gap:calc(var(--F)*.22);user-select:none;text-decoration:none;color:var(--ink)}
-.hero .word{--F:min(156px,10.6vw);justify-content:center;padding:0 1.5rem;margin-bottom:8rem}
-.word .lc{font:500 var(--F)/1 var(--display);letter-spacing:-.045em;color:var(--ink);transform:translateY(calc(var(--F)*.03))}
-/* measured on TASA Orbiter 500: x-height = .502 em; with line-height 1 and the .03 em nudge the
-   baseline sits .1275 em above the line box bottom. The pixel letters are exactly one x-height
-   tall and stand on the baseline; the mark's frame does too, its tail hangs two cells below. */
-.word{--xh:.502;--bl:.1275}
-.word svg{height:calc(var(--F)*var(--xh));width:auto;display:block;overflow:visible;margin-bottom:calc(var(--F)*var(--bl));flex:none}
-.word svg.pm{height:calc(var(--F)*var(--xh)*8/6);margin-bottom:calc(var(--F)*(var(--bl) - var(--xh)/3))}
-.word svg rect{transform-box:fill-box;transform-origin:center}
-.word .lc{flex:none}
-.word svg rect{fill:var(--ink);transition:fill .5s}
-.word svg rect.on{opacity:1}
-.word svg rect.lit{fill:var(--blue)}
-.word svg rect.sig{fill:var(--cyan)}
-.word svg rect.c1{fill:var(--blue)}
-.word svg rect.c2{fill:var(--cyan)}
-.word svg rect.c3{fill:var(--blue-300)}
-.word svg rect.c4{fill:var(--blue-500)}
-.word svg rect.c5{fill:#9A93A6}
-.word svg rect.c6{fill:var(--blue-700)}
-.hero .word svg rect.hot{transition:none}
-/* justified body text, with Hungarian hyphenation so the gaps stay even */
-.intro p,.lede,.card .more p,.step .body,.pbody .l,.pcard span.plain{text-align:justify;hyphens:auto;-webkit-hyphens:auto}
-.intro p{font-size:1.1875rem;line-height:1.5;letter-spacing:.0095px;color:rgba(18,18,19,.64);font-weight:300}
-.intro p+p{margin-top:1.25rem}
-.intro p a{color:var(--ink);text-underline-offset:3px;text-decoration-thickness:1px;transition:color .2s}
-.intro p a:hover{color:var(--blue)}
-.intro .links{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:2.5rem}
-
-/* ---------- sections ---------- */
-section.block{padding:6rem 0}
-.title{font:500 1.25rem/1.2 var(--display);letter-spacing:-.03em;margin-bottom:1.25rem}
-.lede{color:var(--ink-3);margin:-.25rem 0 2rem;font-size:15px;line-height:1.6}
-/* section separator: a 1px dashed line that drifts sideways, as on labs.baseten.co */
-.sep{height:1.5rem;position:relative;overflow:hidden}
-.sep span{display:block;height:1px;margin-top:.75rem;width:200%;background-image:repeating-linear-gradient(to right,var(--dash) 0,var(--dash) .1875rem,transparent .1875rem,transparent .4375rem);animation:sepL 28s linear infinite}
-.sep.rev span{animation-name:sepR}
-@keyframes sepL{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes sepR{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-
-/* work cards */
-.cards{display:grid;gap:1px}
-.card{background:var(--card);border-radius:var(--r);display:grid;grid-template-rows:auto 1fr auto;gap:1.5rem;min-height:9.6875rem;padding:20px 24px;text-decoration:none;cursor:pointer;border:0;text-align:left;font:inherit;color:inherit;width:100%;transition:background .25s}
-.card:hover,.card[aria-expanded=true]{background:var(--hover)}
-.card .top{display:flex;justify-content:space-between;align-items:flex-start}
-.num{font:400 12px/1.5 var(--mono);letter-spacing:-.01em;color:rgba(18,18,19,.48)}
-.thumbs{display:flex;gap:4px}
-.thumbs canvas{width:24px;height:24px;image-rendering:pixelated;display:block;border-radius:var(--r)}
-.card h3{font:400 1.0625rem/1.25 var(--sans);letter-spacing:-.02em;align-self:end;transition:color .2s;margin-bottom:.5rem}
-.card:hover h3{color:var(--blue)}
-.meta{font:400 12px/1.3 var(--mono);letter-spacing:-.01em;text-transform:uppercase;color:rgba(18,18,19,.56);display:flex;gap:.5rem;align-items:center}
-.meta .plus{margin-left:auto;font-size:15px;transition:transform .3s var(--ease);color:var(--ink-3)}
-.card[aria-expanded=true] .plus{transform:rotate(45deg)}
-.card .more{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
-.card .more>div{overflow:hidden}
-.card .more p{font-size:15px;line-height:1.6;color:var(--ink-2);max-width:34rem;padding-top:.25rem}
-.card[aria-expanded=true] .more{grid-template-rows:1fr}
-.after{margin-top:1.25rem}
-
-/* principles timeline */
-.tl{position:relative;padding-left:0}
-.tl::before{content:"";position:absolute;left:19.5px;top:2.5rem;bottom:2.5rem;border-left:1px dashed var(--dash)}
-.step{position:relative;display:grid;grid-template-columns:2.5rem 1fr;gap:1.25rem;padding:0 0 7rem}
-.step:last-child{padding-bottom:3rem}
-.badge{width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;background:var(--rule);font:400 12px/1 var(--mono);color:var(--ink-3);position:relative;z-index:1;border-radius:var(--r);transition:background .35s,color .35s}
-.step.active .badge{background:var(--cyan);color:var(--blue);font-weight:500}
-.step h4{font:400 16px/1.4 var(--mono);text-transform:uppercase;letter-spacing:-.01em;color:var(--ink-4);padding-top:.55rem;transition:color .35s}
-.step.active h4{color:var(--ink)}
-.step .body{font-size:15px;line-height:1.65;color:var(--ink-2);max-width:28rem;margin-top:1rem;min-height:6rem}
-.step .body span{opacity:0;filter:blur(3px);transition:opacity .45s,filter .45s;display:inline}
-.step.active .body span{opacity:1;filter:none}
-
-/* partners */
-.partners{display:grid;grid-template-columns:repeat(3,1fr);gap:1px}
-.pcard{background:var(--card);border-radius:var(--r);padding:20px 24px;min-height:9.6875rem;display:flex;flex-direction:column;justify-content:space-between;transition:background .25s}
-.pcard:hover{background:var(--hover)}
-.pcard b{font:400 13px/1.35 var(--mono);text-transform:uppercase;letter-spacing:-.01em}
-.pcard span{font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-4)}
-.jobs{display:grid;grid-template-columns:1fr 1fr;gap:1px}
-/* partner cards: small black mark on top, name and field below */
-.plogo{display:flex;align-items:flex-start;height:40px}
-.plogo img{display:block;width:auto}
-.solid{filter:brightness(0)}
-.knock{filter:grayscale(1) contrast(12);mix-blend-mode:multiply}
-.crop{display:block;height:calc(var(--dh)*1px);width:calc(var(--dh)*var(--cw)/var(--ch)*1px);background-image:var(--src);background-repeat:no-repeat;
-  background-size:calc(var(--w)*var(--dh)/var(--ch)*1px) auto;background-position:calc(var(--x)*var(--dh)/var(--ch)*-1px) calc(var(--y)*var(--dh)/var(--ch)*-1px)}
-.pname{display:flex;flex-direction:column;gap:.5rem}
-.pcard .pname span{line-height:1.35}
-.pmore{grid-column:1/-1;flex-direction:row;align-items:flex-end;justify-content:space-between;gap:2rem}
-/* one square per organisation we have worked with: a quiet crowd, now and then one lights up */
-.pfield{display:grid;grid-auto-rows:6px;gap:4px;flex:none}
-.pfield i{display:block;width:6px;height:6px;border-radius:1px;background:rgba(18,18,19,.09);transition:background-color .6s}
-.pfield i.t1{background:rgba(18,18,19,.18)}
-.pfield i.t2{background:rgba(18,18,19,.36)}
-.pfield i.t3{background:var(--ink)}
-.pfield i.on{background:var(--blue);transition:none}
-.pfield i.sig{background:var(--cyan);transition:none}
-.pplus{display:grid;grid-template-columns:repeat(3,6px);grid-template-rows:repeat(3,6px);height:40px;align-content:start}
-.pplus b{background:var(--ink)}
-.pplus b:nth-child(1){grid-area:1/2}.pplus b:nth-child(2){grid-area:2/1}.pplus b:nth-child(3){grid-area:2/2;background:var(--blue)}.pplus b:nth-child(4){grid-area:2/3}.pplus b:nth-child(5){grid-area:3/2}
-.jobs a.pcard{text-decoration:none;color:inherit}
-.jobs a.pcard:hover b{color:var(--blue)}
-.pcard span.plain{font:300 14.5px/1.5 var(--sans);text-transform:none;color:var(--ink-2)}
-/* consulting card: one price, one line, one button */
-.cons{background:var(--white);border-radius:var(--r);margin:0 -1.5rem;padding:24px 36px 32px;position:relative}
-.ctop{display:flex;justify-content:space-between;align-items:center;font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3)}
-.cpx{display:grid;grid-template-columns:8px 8px;grid-template-rows:8px 8px;gap:0}
-.cpx b{background:var(--ink)}
-.cpx b:nth-child(1){grid-area:1/1}.cpx b:nth-child(2){grid-area:2/2;background:var(--blue)}.cpx b:nth-child(3){display:none}
-.cprice{display:flex;align-items:baseline;gap:.5rem;margin:2.75rem 0 1rem}
-.cprice strong{font:500 4.25rem/1 var(--display);letter-spacing:-.04em}
-.cprice span{font:400 13px/1 var(--mono);color:var(--ink-3)}
-.cdesc{font-size:15px;line-height:1.6;color:var(--ink-2);max-width:30rem}
-.cmain{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;padding-bottom:1.75rem;border-bottom:1px solid var(--border);margin-bottom:1.25rem}
-.route{width:272px;height:120px;display:block;shape-rendering:crispEdges}
-.route rect{fill:var(--ink)}
-.route rect.t1{fill:rgba(18,18,19,.28)}
-.route rect.t2{fill:rgba(18,18,19,.55)}
-.route rect.ln{fill:var(--blue)}
-.route rect.dot{fill:var(--cyan)}
-.cbtn{width:100%;justify-content:space-between;padding:11px 20px}
-
-/* product block */
-.prod{max-width:58rem;margin:0 auto;padding:0 1.5rem}
-.panel{background:var(--white);border-radius:var(--r);overflow:hidden}
-.phead{background:var(--blue);color:#fff;position:relative;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;padding:56px 36px}
-.phead .px{position:absolute;width:8px;height:8px;background:var(--cyan)}
-.phead .px.a{top:12px;left:12px}.phead .px.b{bottom:12px;right:12px}
-.phead h3{font:500 1.25rem/1.2 var(--display);letter-spacing:-.03em}
-.phead p{font-size:14px;color:rgba(255,255,255,.75);margin-top:.5rem}
-.phead .btn{background:#fff;color:var(--blue)}
-.phead .btn:hover{background:var(--cyan)}
-.pstripe{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;height:3px}
-.pstripe i:nth-child(2){background:var(--cyan)}.pstripe i:nth-child(5){background:var(--blue-300)}
-.pbody{display:grid;grid-template-columns:1fr 1fr}
-.pbody .l{padding:32px 36px;font-size:15px;line-height:1.65;color:var(--ink-2);border-right:1px solid var(--page)}
-.spec{display:grid;grid-template-columns:9rem 1fr}
-.spec dt,.spec dd{padding:1rem 1.25rem;border-bottom:1px solid var(--page);font-size:14.5px}
-.spec dt{font:400 12px/1.5 var(--mono);text-transform:uppercase;color:var(--ink-3);border-right:1px solid var(--page);padding-top:1.15rem}
-.spec dd{color:var(--ink);line-height:1.55}
-.lnote{display:block;margin-top:1rem;font:400 12px/1.5 var(--mono);text-transform:uppercase;color:var(--ink-3)}
-.stack{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.9rem}
-.stack span{font:400 12px/1 var(--mono);padding:.35rem .5rem;border-radius:var(--r);background:var(--page);color:var(--ink-2)}
-.pfoot{grid-column:2;display:flex;gap:.5rem;padding:16px 20px}
-
-/* ---------- Intercept block: a small copy of the interceptnews.ai hero (Blue field of 20 px tiles,
-   white wordmark, TASA headline, white pill with the pixel arrow), sized to this page's frame ---------- */
-.ix{position:relative;background:var(--blue);color:#fff;border-radius:var(--r);overflow:hidden;padding:32px 40px 40px;min-height:34rem;display:flex;flex-direction:column}
-.ix-field{position:absolute;inset:0;width:100%;height:100%;display:block}
-.ix>*:not(.ix-field){position:relative}
-.ix-top{display:flex;align-items:center;justify-content:space-between}
-.ix-logo{height:20px;width:auto;display:block}
-.ix-site{font:500 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.02em;color:rgba(255,255,255,.75);text-decoration:none}
-.ix-site:hover{color:#fff}
-.ix-h{font:500 clamp(2.6rem,7.4vw,4.75rem)/.92 var(--display);letter-spacing:-.05em;margin:auto 0 0;padding-top:4rem}
-.ix-bottom{display:flex;align-items:flex-end;justify-content:space-between;gap:2rem;margin-top:2.5rem}
-.ix-bottom p{font-size:15px;line-height:1.5;max-width:25rem;color:#fff}
-.ix-pill{display:inline-flex;align-items:center;gap:12px;flex:none;background:#fff;color:var(--blue);height:44px;padding:0 26px;border-radius:999px;font:600 15px/1 "Barlow",var(--sans);text-transform:uppercase;letter-spacing:.02em;text-decoration:none;transition:background .2s}
-.ix-pill:hover{background:var(--cyan)}
-.px-arrow{fill:currentColor}
-
-/* ---------- footer ---------- */
-footer{margin-top:6rem}
-.fgrid{border-top:1px solid var(--border);background:var(--card)}
-.fcol{max-width:var(--col);margin:0 auto;border-left:1px dashed var(--dash);border-right:1px dashed var(--dash)}
-.frow{padding:48px 24px;background-image:repeating-linear-gradient(to right,var(--dash) 0,var(--dash) .1875rem,transparent .1875rem,transparent .4375rem);background-size:100% 1px;background-repeat:no-repeat;background-position:bottom}
-.frow:last-child{background-image:none}
-.flogo .ftag{margin-top:24px}
-.flogo .word{--F:min(46px,8.4vw)}
-.ftag{color:var(--ink-3);font-size:15px}
-.fcols{display:grid;grid-template-columns:2fr 3fr;gap:56px}
-.fcols h5{font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3);margin-bottom:1.25rem}
-.fcols ul{list-style:none;display:grid;gap:.5rem;font-size:15px}
-.fcols ul a{text-decoration:none;transition:color .2s}
-.fcols ul a:hover{color:var(--blue)}
-.mailrow{display:flex}
-.mailrow a.addr{flex:1;display:flex;align-items:center;padding:0 .75rem;background:var(--white);border:1px solid var(--border);border-right:0;border-radius:var(--r) 0 0 var(--r);font-size:15px;text-decoration:none;color:var(--ink-2)}
-.mailrow .btn{background:var(--rule);border-radius:0 var(--r) var(--r) 0}
-.mailrow .btn:hover{background:var(--blue)}
-.fnote{font-size:13px;color:var(--ink-4);margin-top:.65rem}
-.flegal{display:flex;gap:1.25rem}
-.flegal a{text-decoration:none;color:inherit}
-.flegal a:hover{color:var(--blue)}
-.fbot{padding-top:24px;padding-bottom:24px;display:flex;justify-content:space-between;font:400 12px/1 var(--mono);text-transform:uppercase;color:var(--ink-3)}
-
-/* reveal on scroll */
-.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.js .rv.in{opacity:1;transform:none}
-
-@media (max-width:720px){
-  .hero{padding:3.125rem 0 4rem}
-  .fcols{gap:40px}
-  .hero .word{margin-bottom:3.5rem;--F:9.9vw}
-  .cons{padding:20px 24px 24px}
-  /* phones: the nav becomes a swipeable row under the logo; short lines read better ragged */
-  .bar{flex-wrap:wrap;height:auto;row-gap:10px;padding:12px 16px}
-  .bar nav{width:100%;overflow-x:auto;scrollbar-width:none;margin:0 -16px;padding:0 16px;width:calc(100% + 32px)}
-  .bar nav::-webkit-scrollbar{display:none}
-  .bar nav ul{width:max-content}
-  .bar nav,.bar .mark{display:none}
-  header.scrolled .bar nav,header.scrolled .bar .mark{display:flex}
-  .intro p,.lede,.card .more p,.step .body,.pbody .l,.pcard span.plain{text-align:left;hyphens:manual}
-  section[id],footer{scroll-margin-top:6.5rem}
-  .partners,.jobs{grid-template-columns:1fr}
-  .pmore{grid-column:auto;flex-direction:column;align-items:stretch}
-  .ix{padding:24px 22px 26px;min-height:30rem}
-  .ix-bottom{flex-direction:column;align-items:flex-start;gap:1.25rem}
-  .cons{padding:1.4rem 1.5rem 1.5rem}
-  .cmain{grid-template-columns:1fr;gap:1.5rem}
-  .route{width:100%;height:auto;grid-row:1}
-  .pcard{min-height:6.5rem}
-  .phead{flex-direction:column;align-items:flex-start;padding:3rem 1.5rem}
-  .pbody{grid-template-columns:1fr}
-  .pbody .l{border-right:0;border-bottom:1px solid var(--page);padding:1.5rem}
-  .spec{grid-template-columns:7.5rem 1fr}
-  .pfoot{grid-column:1;flex-wrap:wrap}
-  .fcols{grid-template-columns:1fr}
-  .step{padding-bottom:5rem}
-  .intro p{font-size:1.0625rem}
-}
-@media (prefers-reduced-motion:reduce){
-  .sep span{animation:none}
-
-  *{transition:none!important;scroll-behavior:auto!important}
-  .rv{opacity:1;transform:none}
-  .step .body span{opacity:1;filter:none}
-}
-</style>
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="nestor.css">
 </head>
 <body>
 
-<header id="hdr">
-  <div class="stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="bar">
-    <a class="mark word" href="#top" aria-label="Nestor Analytics — vissza az elejére"><svg class="pm" aria-hidden="true"></svg><span class="lc" aria-hidden="true">nestor</span><svg class="pa" aria-hidden="true"></svg></a>
-    <nav aria-label="Fő navigáció"><ul>
-      <li><a class="btn chip" href="#megoldasok">Fejlesztés</a></li>
-      <li><a class="btn chip" href="#elveink">Elveink</a></li>
-      <li><a class="btn chip" href="#tanacsadas">Tanácsadás</a></li>
-      <li><a class="btn chip" href="#intercept">Intercept</a></li>
-      <li><a class="btn chip" href="#csatlakozz">Csatlakozz</a></li>
-      <li><a class="btn chip" href="#kapcsolat">Kapcsolat</a></li>
-    </ul></nav>
+<header class="nh" id="top">
+  <div class="stripe" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <nav class="nh-nav" aria-label="Fő navigáció">
+    <a class="brand word nh-logo" href="#" aria-label="Nestor Analytics főoldal"><svg class="pm" aria-hidden="true"></svg><span class="lc" aria-hidden="true">nestor</span><svg class="pa" aria-hidden="true"></svg></a>
+    <ul class="nh-links">
+      <li data-menu>
+        <button type="button" class="nh-trigger" id="nm-dev-t" aria-expanded="false" aria-controls="nm-dev">Fejlesztés<svg class="chev" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 2.5h6L4 6z" fill="currentColor"/></svg></button>
+        <div class="nh-panel" id="nm-dev" role="region" aria-labelledby="nm-dev-t" inert>
+          <ul class="mc-grid">
+            <li><a class="mc-card" href="#megoldasok" data-work="0">
+              <span class="mc-content"><span class="mc-title"><i class="mc-ic" data-nicon="code"></i><span>Egyedi szoftver</span></span><span class="mc-desc">Tervezéstől az üzemeltetésig, egy csapattal</span></span>
+              <span class="mc-asset" aria-hidden="true"><canvas class="mc-thumb" data-area="0"></canvas></span>
+            </a></li>
+            <li><a class="mc-card" href="#megoldasok" data-work="1">
+              <span class="mc-content"><span class="mc-title"><i class="mc-ic" data-nicon="server"></i><span>Backend</span></span><span class="mc-desc">Aszinkron feldolgozás, nagy forgalomra méretezve</span></span>
+              <span class="mc-asset" aria-hidden="true"><canvas class="mc-thumb" data-area="1"></canvas></span>
+            </a></li>
+            <li><a class="mc-card" href="#megoldasok" data-work="2">
+              <span class="mc-content"><span class="mc-title"><i class="mc-ic" data-nicon="chat"></i><span>Nyelvi modellek</span></span><span class="mc-desc">Modellek éles rendszerben, mért költséggel</span></span>
+              <span class="mc-asset" aria-hidden="true"><canvas class="mc-thumb" data-area="2"></canvas></span>
+            </a></li>
+            <li><a class="mc-card" href="#megoldasok" data-work="3">
+              <span class="mc-content"><span class="mc-title"><i class="mc-ic" data-nicon="bars"></i><span>Gépi tanulás</span></span><span class="mc-desc">Saját adaton tanított, élesítés előtt mért modellek</span></span>
+              <span class="mc-asset" aria-hidden="true"><canvas class="mc-thumb" data-area="3"></canvas></span>
+            </a></li>
+            <li><a class="mc-card" href="#megoldasok" data-work="4">
+              <span class="mc-content"><span class="mc-title"><i class="mc-ic" data-nicon="search"></i><span>Adatgyűjtés</span></span><span class="mc-desc">Adat több százezer forrásból, hibrid kereséssel</span></span>
+              <span class="mc-asset" aria-hidden="true"><canvas class="mc-thumb" data-area="4"></canvas></span>
+            </a></li>
+          </ul>
+        </div>
+      </li>
+      <li><a class="nh-link" href="#elveink">Elveink</a></li>
+      <li><a class="nh-link" href="#tanacsadas">Tanácsadás</a></li>
+      <li><a class="nh-link" href="#csatlakozz">Csatlakozz</a></li>
+    </ul>
+    <ul class="nh-actions">
+      <li><a class="nh-link nh-ext" href="https://interceptnews.ai" target="_blank" rel="noopener">Intercept<svg class="ext" viewBox="0 0 7 7" aria-hidden="true"><path d="M1 6 6 1M2 1h4v4" fill="none" stroke="currentColor" stroke-width="1"/></svg></a></li>
+      <li><a class="btn b3d soft" href="#kapcsolat">Kapcsolat</a></li>
+      <li><a class="btn b3d" href="mailto:info@nestoranalytics.hu?subject=Fejleszt%C3%A9s">Fejlesztést kérnék</a></li>
+    </ul>
+    <button type="button" class="nh-burger" aria-expanded="false" aria-controls="nh-mobile" aria-label="Menü"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="nh-overlay" aria-hidden="true"></div>
+  <div class="nh-mobile" id="nh-mobile" inert>
+    <ul class="mm-items">
+      <li>
+        <button type="button" class="mm-row" aria-expanded="false" aria-controls="mm-dev">Fejlesztés<svg class="chev" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 2.5h6L4 6z" fill="currentColor"/></svg></button>
+        <div class="mm-panel" id="mm-dev"><div class="mm-inner"><ul class="mm-subs">
+              <li><a class="mm-sub" href="#megoldasok" data-work="0"><i data-nicon="code"></i><span>Egyedi szoftvertervezés és -fejlesztés</span></a></li>
+              <li><a class="mm-sub" href="#megoldasok" data-work="1"><i data-nicon="server"></i><span>Backend és elosztott rendszerek</span></a></li>
+              <li><a class="mm-sub" href="#megoldasok" data-work="2"><i data-nicon="chat"></i><span>Nyelvi modellek éles üzemben</span></a></li>
+              <li><a class="mm-sub" href="#megoldasok" data-work="3"><i data-nicon="bars"></i><span>Gépi tanulás és adatelemzés</span></a></li>
+              <li><a class="mm-sub" href="#megoldasok" data-work="4"><i data-nicon="search"></i><span>Keresés és adatgyűjtés</span></a></li>
+        </ul></div></div>
+      </li>
+      <li><a class="mm-row" href="#elveink">Elveink</a></li>
+      <li><a class="mm-row" href="#tanacsadas">Tanácsadás</a></li>
+      <li><a class="mm-row" href="#csatlakozz">Csatlakozz</a></li>
+      <li><a class="mm-row" href="https://interceptnews.ai" target="_blank" rel="noopener">Intercept<svg class="ext" viewBox="0 0 7 7" aria-hidden="true"><path d="M1 6 6 1M2 1h4v4" fill="none" stroke="currentColor" stroke-width="1"/></svg></a></li>
+    </ul>
+    <ul class="mm-actions">
+      <li><a class="btn b3d soft" href="#kapcsolat">Kapcsolat</a></li>
+      <li><a class="btn b3d" href="mailto:info@nestoranalytics.hu?subject=Fejleszt%C3%A9s">Fejlesztést kérnék</a></li>
+    </ul>
   </div>
 </header>
 
-<main id="top">
-  <!-- ======= hero ======= -->
-  <section class="hero">
-    <h1 class="word" aria-label="Nestor Analytics">
-      <svg class="pm" aria-hidden="true"></svg><span class="lc" aria-hidden="true">nestor</span><svg class="pa" id="px" aria-hidden="true"></svg>
-    </h1>
-    <div class="col intro">
-      <p>Magyar fejlesztőcsapat vagyunk, mi fejlesztjük és üzemeltetjük az <a href="#intercept">Interceptet</a>. Ez egy médiafigyelő rendszer, amely elolvassa a beérkező cikkeket, posztokat és videókat, és megmondja, melyik mennyire fontos egy adott cégnek.</p>
-      <p>Az Intercept folyamatosan fut, több százezer forrásból és sok nyelven dolgozik. Emellett megrendelésre egyedi szoftvert is fejlesztünk.</p>
-      <div class="links">
-        <a class="btn" href="#megoldasok">Fejlesztés <span class="arr">→</span></a>
-        <a class="btn" href="#elveink">Elveink <span class="arr">→</span></a>
-        <a class="btn" href="#tanacsadas">Tanácsadás <span class="arr">→</span></a>
-        <a class="btn" href="#intercept">Intercept <span class="arr">→</span></a>
-        <a class="btn" href="#csatlakozz">Csatlakozz <span class="arr">→</span></a>
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="panel hero" aria-labelledby="h1">
+  <h1 id="h1" class="mega"><span class="ln"><span>Mi építjük az Interceptet</span></span></h1>
+
+  <div class="hc" id="heroStage">
+    <div class="hc-visual"><canvas id="heroCanvas" aria-hidden="true"></canvas></div>
+    <div class="hc-content intro">
+      <p>Mi fejlesztjük és üzemeltetjük az <a href="#intercept">Interceptet</a>, egy médiafigyelő rendszert, amely több százezer forrásból és sok nyelven dolgozik. Emellett megrendelésre egyedi szoftvert is fejlesztünk.</p>
+      <div class="ctas">
+        <a class="btn b3d wide" href="mailto:info@nestoranalytics.hu?subject=Fejleszt%C3%A9s">Fejlesztést kérnék <i class="tri" aria-hidden="true"></i></a>
+        <a class="btn b3d wide line" href="#megoldasok">Amit fejlesztünk <i class="tri" aria-hidden="true"></i></a>
       </div>
     </div>
-  </section>
 
-  <div class="sep rev" aria-hidden="true"><span></span></div>
-
-  <!-- ======= work ======= -->
-  <section class="block" id="megoldasok">
-    <div class="col">
-      <p class="title rv">Egyedi szoftvert fejlesztünk.</p>
-      <p class="lede rv">Webes és mobilalkalmazást, backendet, adatfeldolgozást és nyelvi modellekre épülő rendszereket. Olyat nem adunk át, amit mi magunk ne használnánk szívesen.</p>
-      <div class="cards" id="cards"></div>
-      <div class="after rv" style="display:flex;gap:.5rem;flex-wrap:wrap"><a class="btn signal" href="mailto:info@nestoranalytics.hu?subject=Fejleszt%C3%A9s">Fejlesztést kérnék <span class="arr">→</span></a><a class="btn" href="#intercept">Az Intercept <span class="arr">→</span></a></div>
-    </div>
-  </section>
-
-  <div class="sep" aria-hidden="true"><span></span></div>
-
-  <!-- ======= principles ======= -->
-  <section class="block" id="elveink">
-    <div class="col">
-      <p class="title rv">Így dolgozunk.</p>
-      <p class="lede rv" style="margin-bottom:3.5rem">Ezek a saját szabályaink. Az Interceptnél és a megrendelők projektjein is ezek szerint dolgozunk.</p>
-      <div class="tl" id="tl"></div>
-    </div>
-  </section>
-
-  <div class="sep rev" aria-hidden="true"><span></span></div>
-
-  <!-- ======= partners ======= -->
-  <section class="block">
-    <div class="col">
-      <p class="title rv">Partnereink.</p>
-      <div class="partners">
-        <div class="pcard rv"><span class="plogo"><img class="solid" src="assets/partners/kh.png" alt="" style="height:34px"></span><span class="pname"><b>K&amp;H Bank</b><span>Bank</span></span></div>
-        <div class="pcard rv"><span class="plogo"><img class="knock" src="assets/partners/mol.png" alt="" style="height:26px"></span><span class="pname"><b>MOL</b><span>Energia</span></span></div>
-        <div class="pcard rv"><span class="plogo"><i class="crop knock" style="--src:url(assets/partners/cmf.jpg);--w:343;--h:203;--x:40;--y:30;--cw:100;--ch:145;--dh:40"></i></span><span class="pname"><b>CMF</b><span>Molekuláris-Ujjlenyomat Kutató Központ</span></span></div>
-        <div class="pcard pmore rv"><span class="pname"><b>És még sokan mások</b><span>Cégek, közintézmények és kutatóhelyek</span></span><span class="pfield" aria-hidden="true"></span></div>
+    <div class="prodcard" id="heroCard">
+      <span class="pc-tag" id="hcTag" aria-hidden="true">Backend</span>
+      <div class="picks" role="tablist" aria-label="Amit fejlesztünk">
+        <button role="tab" class="pick" data-i="0" aria-label="Backend és elosztott rendszerek"><svg class="pick-ic" viewBox="0 0 20 20" aria-hidden="true"></svg><span class="pick-tip" aria-hidden="true">Backend</span></button>
+        <button role="tab" class="pick" data-i="1" aria-label="Nyelvi modellek éles üzemben"><svg class="pick-ic" viewBox="0 0 20 20" aria-hidden="true"></svg><span class="pick-tip" aria-hidden="true">Nyelvi modellek</span></button>
+        <button role="tab" class="pick" data-i="2" aria-label="Gépi tanulás és adatelemzés"><svg class="pick-ic" viewBox="0 0 20 20" aria-hidden="true"></svg><span class="pick-tip" aria-hidden="true">Gépi tanulás</span></button>
+        <button role="tab" class="pick" data-i="3" aria-label="Keresés és adatgyűjtés"><svg class="pick-ic" viewBox="0 0 20 20" aria-hidden="true"></svg><span class="pick-tip" aria-hidden="true">Adatgyűjtés</span></button>
+        <button role="tab" class="pick" data-i="4" aria-label="Web- és mobilalkalmazások"><svg class="pick-ic" viewBox="0 0 20 20" aria-hidden="true"></svg><span class="pick-tip" aria-hidden="true">Web és mobil</span></button>
+        <span class="pick-timer" aria-hidden="true"></span>
+      </div>
+      <div class="pc-body" role="tabpanel">
+        <b id="hcTitle">Backend és elosztott rendszerek</b>
+        <p id="hcText">Aszinkron feldolgozás, ami nagy forgalom mellett is kiszámítható.</p>
       </div>
     </div>
-  </section>
-
-  <div class="sep" aria-hidden="true"><span></span></div>
-
-  <!-- ======= consulting ======= -->
-  <section class="block" id="tanacsadas">
-    <div class="col">
-      <p class="title rv">Tanácsadás.</p>
-      <div class="cons rv">
-        <div class="ctop"><span>Egyedi informatikai tanácsadás</span></div>
-        <div class="cmain">
-          <div>
-            <div class="cprice"><strong>199 €</strong><span>/ óra</span></div>
-            <p class="cdesc">Egyórás egyeztetés valakivel a csapatból, aki ilyen rendszereket épít. Akkor is segítünk, ha a saját fejlesztőid elakadtak, és nem tudják, merre tovább. Bármilyen informatikai csapatnak adunk útmutatást, legyen szó architektúráról, AI-bevezetésről, adatkezelésről vagy költségekről.</p>
-          </div>
-          <svg class="route" viewBox="0 0 34 15" aria-hidden="true"></svg>
-        </div>
-        <a class="btn signal cbtn" href="mailto:info@nestoranalytics.hu?subject=Tan%C3%A1csad%C3%A1s">Időpontot kérek <span class="arr">→</span></a>
+    <div class="hc-logos" role="list" aria-label="Ügyfeleink">
+      <div class="hc-slot" role="listitem" aria-label="MOL: Energia" style="--dr:1;--dc:6;--mr:1;--mc:1">
+        <div class="tile ctile"><span class="ct-field">Energia</span><img src="assets/partners/mol-t.png" alt="" class="lg-solid" style="height:34px"><span class="ct-name">MOL</span></div>
       </div>
-    </div>
-  </section>
-
-  <div class="sep rev" aria-hidden="true"><span></span></div>
-
-  <!-- ======= product ======= -->
-  <section class="block" id="intercept">
-    <div class="col">
-      <p class="title rv">Az Intercept.</p>
-      <p class="lede rv">A saját termékünk, a fent leírtak mind ebben futnak. Minden beérkező cikket, posztot és videót aszerint pontoz, mennyire fontos a te cégednek.</p>
-    </div>
-    <div class="prod rv">
-      <div class="ix">
-        <canvas class="ix-field" aria-hidden="true"></canvas>
-        <div class="ix-top">
-          <img class="ix-logo" src="assets/intercept-logo-white.svg" alt="Intercept">
-          <a class="ix-site" href="https://interceptnews.ai" target="_blank" rel="noopener">interceptnews.ai ↗</a>
-        </div>
-        <h3 class="ix-h">Globális<br>médiafigyelés<br>kulcsszavakon túl.</h3>
-        <div class="ix-bottom">
-          <p>Kommunikációs, kockázatkezelési és vezetői csapatoknak. Az Interceptet a cégedre szabva állítjuk be: minden hírt elolvas, és mindegyiket pontozza aszerint, mennyire releváns neked.</p>
-          <a class="ix-pill" href="mailto:info@nestoranalytics.hu?subject=Intercept%20dem%C3%B3">Kérj demót <svg class="px-arrow" viewBox="0 0 19 19" width="17" height="17" aria-hidden="true"><path d="M4 0h3v3h-3zM8 0h3v3h-3zM12 0h3v3h-3zM16 0h3v3h-3zM12 4h3v3h-3zM16 4h3v3h-3zM8 8h3v3h-3zM16 8h3v3h-3zM4 12h3v3h-3zM16 12h3v3h-3zM0 16h3v3h-3z"/></svg></a>
-        </div>
+      <div class="hc-slot" role="listitem" aria-label="K&amp;H Bank: Bank" style="--dr:2;--dc:5;--mr:1;--mc:2">
+        <div class="tile ctile"><span class="ct-field">Bank</span><img src="assets/partners/kh.png" alt="" class="lg-solid" style="height:36px"><span class="ct-name">K&amp;H Bank</span></div>
       </div>
-    </div>
-  </section>
-
-  <div class="sep" aria-hidden="true"><span></span></div>
-
-  <!-- ======= join ======= -->
-  <section class="block" id="csatlakozz">
-    <div class="col">
-      <p class="title rv">Fejlesztőket keresünk.</p>
-      <p class="lede rv">Tapasztalt szoftvermérnököket keresünk, akik terveztek és üzemeltettek már éles rendszert. Önéletrajz nem kell. Írd meg, min dolgozol most, küldj egy projektet, amire büszke vagy, és pár mondatban azt is, ami mostanában foglalkoztat.</p>
-      <div class="jobs">
-        <a class="pcard rv" href="mailto:info@nestoranalytics.hu?subject=Jelentkez%C3%A9s&body=Min%20dolgozom%20most%3A%0A%0A%0AEgy%20projekt%2C%20amire%20b%C3%BCszke%20vagyok%20%28link%29%3A%0A%0A%0AAmi%20mostan%C3%A1ban%20foglalkoztat%3A%0A%0A"><b>Nyílt jelentkezés</b><span>Backend · gépi tanulás · platform · adat</span></a>
-        <div class="pcard rv"><b>Amivel dolgozunk</b><span class="plain">Python, Go, TypeScript, PostgreSQL, natív iOS és Android.</span></div>
+      <div class="hc-slot" role="listitem" aria-label="Dreher: Sörgyár" style="--dr:2;--dc:6;--mr:2;--mc:1">
+        <div class="tile ctile"><span class="ct-field">Sörgyár</span><img src="assets/partners/dreher.svg" alt="" class="lg-solid" style="height:42px"><span class="ct-name">Dreher</span></div>
       </div>
-      <div class="after rv"><a class="btn" href="mailto:info@nestoranalytics.hu?subject=Jelentkez%C3%A9s&body=Min%20dolgozom%20most%3A%0A%0A%0AEgy%20projekt%2C%20amire%20b%C3%BCszke%20vagyok%20%28link%29%3A%0A%0A%0AAmi%20mostan%C3%A1ban%20foglalkoztat%3A%0A%0A">Írok nektek <span class="arr">→</span></a></div>
-    </div>
-  </section>
-</main>
-
-<!-- ======= footer ======= -->
-<footer id="kapcsolat">
-  <div class="stripe"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-  <div class="fgrid">
-    <div class="fcol">
-      <div class="frow flogo"><span class="word" role="img" aria-label="Nestor Analytics"><svg class="pm" aria-hidden="true"></svg><span class="lc" aria-hidden="true">nestor</span><svg class="pa" aria-hidden="true"></svg></span><p class="ftag">Mi fejlesztjük az Interceptet.</p></div>
-      <div class="frow fcols">
-        <div>
-          <h5>A cég</h5>
-          <ul>
-            <li><a href="#megoldasok">Fejlesztés</a></li>
-            <li><a href="#elveink">Elveink</a></li>
-            <li><a href="#tanacsadas">Tanácsadás</a></li>
-            <li><a href="#intercept">Intercept</a></li>
-            <li><a href="#csatlakozz">Csatlakozz</a></li>
-            <li><a href="https://interceptnews.ai" target="_blank" rel="noopener">interceptnews.ai ↗</a></li>
-          </ul>
-        </div>
-        <div>
-          <h5>Beszéljünk</h5>
-          <div class="mailrow">
-            <a class="addr" href="mailto:info@nestoranalytics.hu">info@nestoranalytics.hu</a>
-            <a class="btn" href="mailto:info@nestoranalytics.hu">Írok <span class="arr">→</span></a>
-          </div>
-          <p class="fnote">Általában egy munkanapon belül válaszolunk.</p>
-        </div>
+      <div class="hc-slot" role="listitem" aria-label="CMF: Molekuláris-Ujjlenyomat Kutató Központ" style="--dr:3;--dc:1;--mr:2;--mc:2">
+        <div class="tile ctile"><span class="ct-field">Kutatóközpont</span><span class="cmf-lock"><img src="assets/partners/cmf-mark.png" alt="" class="lg-solid" style="height:40px"><span class="cmf-txt"><span class="cmf-word">CMF</span><span class="cmf-full">Molekuláris-Ujjlenyomat Kutató Központ</span></span></span><span class="ct-name">CMF</span></div>
       </div>
-      <div class="frow fbot"><span>© 2026 Nestor Analytics Kft.</span><span class="flegal"><a href="impresszum.html">Impresszum</a><a href="impresszum.html#adatkezeles">Adatkezelés</a></span></div>
+      <div class="hc-slot" role="listitem" aria-label="HÉTFA Kutatóintézet: Kutatóintézet" style="--dr:3;--dc:2;--mr:3;--mc:1">
+        <div class="tile ctile"><span class="ct-field">Kutatóintézet</span><img src="assets/partners/hetfa.png" alt="" class="lg-solid" style="height:28px"><span class="ct-name">HÉTFA Kutatóintézet</span></div>
+      </div>
+      <div class="hc-slot" role="listitem" aria-label="Arthitech: Design stúdió" style="--dr:3;--dc:3;--mr:3;--mc:2">
+        <div class="tile ctile"><span class="ct-field">Design stúdió</span><img src="assets/partners/arthitech-t.png" alt="" class="lg-solid" style="height:24px"><span class="ct-name">Arthitech</span></div>
+      </div>
+      <div class="hc-slot" role="listitem" aria-label="WebDoki Csoport: Egészségügy" style="--dr:3;--dc:4;--mr:4;--mc:1 / -1">
+        <div class="tile ctile"><span class="ct-field">Egészségügy</span><img src="assets/partners/webdoki.png" alt="" class="lg-solid" style="height:30px"><span class="ct-name">WebDoki Csoport</span></div>
+      </div>
+      <div class="hc-slot hc-crowd" role="listitem" aria-label="És még sokan mások: cégek, közintézmények és kutatóhelyek" style="--dr:3;--dc:5 / span 2;--mr:4;--mc:2 / span 1">
+        <div class="tile crowd more"><span class="mtxt"><b>És még sokan mások</b><span>Cégek, közintézmények és kutatóhelyek</span></span><span class="pfield" aria-hidden="true"></span></div>
+      </div>
     </div>
   </div>
+</section>
+
+<div class="spacer"><i style="left:0;width:72px"></i><i style="left:140px;width:64px" class="b"></i><i style="right:0;width:120px" class="b"></i></div>
+
+<!-- ============ STATEMENT ============ -->
+<section class="panel statement" id="stmt" aria-label="Amit csinálunk">
+  <p class="reveal-text" id="revealText">Webes és mobilalkalmazást, backendet, adatfeldolgozást és nyelvi modellekre épülő rendszereket fejlesztünk. A saját termékünket, az Interceptet is mi építettük, és mi üzemeltetjük éjjel-nappal. Olyat nem adunk át, amit mi magunk ne használnánk szívesen.</p>
+</section>
+
+<div class="spacer"><i style="left:0;width:80px"></i><i style="left:150px;width:66px"></i><i style="right:220px;width:90px" class="b"></i></div>
+
+<!-- ============ DEVELOPMENT ============ -->
+<section class="panel products" id="megoldasok" aria-labelledby="h-prod">
+  <span class="eyebrow rv">Fejlesztés</span>
+  <h2 id="h-prod" class="h2 rv">Egyedi szoftvert fejlesztünk</h2>
+
+  <div class="pstage rv" id="prodStage">
+    <canvas id="prodCanvas" aria-hidden="true"></canvas>
+    <div class="cut ptabs" role="tablist" aria-label="Fejlesztési területek" id="ptabs"></div>
+    <article class="pdetail" id="pDetail" aria-live="polite">
+      <header><span class="pd-ic" id="pdIcon"></span><h3 id="pdTitle"></h3></header>
+      <p class="pd-text" id="pdText"></p>
+      <div class="pd-ex">
+        <span class="mono-l" id="pdMeta"></span>
+        <div class="stack" id="pdStack"></div>
+      </div>
+      <a class="btn b3d wide" href="mailto:info@nestoranalytics.hu?subject=Fejleszt%C3%A9s">Fejlesztést kérnék <i class="tri" aria-hidden="true"></i></a>
+    </article>
+  </div>
+</section>
+
+<div class="spacer"><i style="left:0;width:64px"></i><i style="left:130px;width:72px" class="b"></i><i style="right:0;width:96px"></i></div>
+
+<!-- ============ PRINCIPLES ============ -->
+<section class="panel pr" id="elveink" aria-labelledby="prHead">
+  <h2 class="pr-heading" id="prHead"></h2>
+  <p class="pr-text" id="prText"></p>
+  <div class="pr-rail">
+    <span class="eyebrow pr-eyebrow">Elveink</span>
+    <div class="pr-tabs" role="tablist" aria-label="Elveink" id="prTabs"></div>
+  </div>
+  <div class="pr-content" id="prContent"></div>
+</section>
+
+<div class="spacer"><i style="left:0;width:72px"></i><i style="left:150px;width:60px" class="b"></i><i style="right:0;width:110px"></i></div>
+
+<!-- ============ CONSULTING + CAREERS ============ -->
+<section class="panel duo" aria-label="Tanácsadás és csatlakozás">
+  <article class="dcard c-blue" id="tanacsadas">
+    <div class="oc-top"><span>Tanácsadás</span><span class="mini">■</span></div>
+    <div class="d-head">
+      <h2 class="d-h">Egyedi informatikai<br>tanácsadás</h2>
+      <div class="cprice"><strong>250 €</strong><span>/ óra</span></div>
+    </div>
+    <p class="d-p">Egyórás egyeztetés valakivel a csapatból, aki ilyen rendszereket épít. Akkor is segítünk, ha a saját fejlesztőid elakadtak, és nem tudják, merre tovább. Bármilyen informatikai csapatnak adunk útmutatást, legyen szó architektúráról, AI-bevezetésről, adatkezelésről vagy költségekről.</p>
+    <div class="d-foot">
+      <svg class="route" viewBox="0 0 34 15" aria-hidden="true"></svg>
+      <a class="btn b3d wide signal" href="mailto:info@nestoranalytics.hu?subject=Tan%C3%A1csad%C3%A1s">Időpontot kérek <i class="tri" aria-hidden="true"></i></a>
+    </div>
+  </article>
+  <article class="dcard c-ink" id="csatlakozz">
+    <div class="oc-top"><span>Csatlakozz</span><span class="mini">■</span></div>
+    <div class="d-head">
+      <h2 class="d-h">Fejlesztőket<br>keresünk</h2>
+      <span class="d-open"><i></i>Nyílt jelentkezés</span>
+    </div>
+    <p class="d-p">Tapasztalt szoftvermérnököket keresünk, akik terveztek és üzemeltettek már éles rendszert. Önéletrajz nem kell. Írd meg, min dolgozol most, küldj egy projektet, amire büszke vagy, és pár mondatban azt is, ami mostanában foglalkoztat.</p>
+    <div class="d-foot">
+      <div class="d-tech"><span class="d-tech-l">Backend · gépi tanulás · platform · adat</span><ul><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05-.05-1.23.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09zm13.09 3.95l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.01zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08z"/></svg><span>Python</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.811 10.231c-.047 0-.058-.023-.035-.059l.246-.315c.023-.035.081-.058.128-.058h4.172c.046 0 .058.035.035.07l-.199.303c-.023.036-.082.07-.117.07zM.047 11.306c-.047 0-.059-.023-.035-.058l.245-.316c.023-.035.082-.058.129-.058h5.328c.047 0 .07.035.058.07l-.093.28c-.012.047-.058.07-.105.07zm2.828 1.075c-.047 0-.059-.035-.035-.07l.163-.292c.023-.035.07-.07.117-.07h2.337c.047 0 .07.035.07.082l-.023.28c0 .047-.047.082-.082.082zm12.129-2.36c-.736.187-1.239.327-1.963.514-.176.046-.187.058-.34-.117-.174-.199-.303-.327-.548-.444-.737-.362-1.45-.257-2.115.175-.795.514-1.204 1.274-1.192 2.22.011.935.654 1.706 1.577 1.835.795.105 1.46-.175 1.987-.77.105-.13.198-.27.315-.434H10.47c-.245 0-.304-.152-.222-.35.152-.362.432-.97.596-1.274a.315.315 0 01.292-.187h4.253c-.023.316-.023.631-.07.947a4.983 4.983 0 01-.958 2.29c-.841 1.11-1.94 1.8-3.33 1.986-1.145.152-2.209-.07-3.143-.77-.865-.655-1.356-1.52-1.484-2.595-.152-1.274.222-2.419.993-3.424.83-1.086 1.928-1.776 3.272-2.02 1.098-.2 2.15-.07 3.096.571.62.41 1.063.97 1.356 1.648.07.105.023.164-.117.2m3.868 6.461c-1.064-.024-2.034-.328-2.852-1.029a3.665 3.665 0 01-1.262-2.255c-.21-1.32.152-2.489.947-3.529.853-1.122 1.881-1.706 3.272-1.95 1.192-.21 2.314-.095 3.33.595.923.63 1.496 1.484 1.648 2.605.198 1.578-.257 2.863-1.344 3.962-.771.783-1.718 1.273-2.805 1.495-.315.06-.63.07-.934.106zm2.78-4.72c-.011-.153-.011-.27-.034-.387-.21-1.157-1.274-1.81-2.384-1.554-1.087.245-1.788.935-2.045 2.033-.21.912.234 1.835 1.075 2.21.643.28 1.285.244 1.905-.07.923-.48 1.425-1.228 1.484-2.233z"/></svg><span>Go</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1.125 0C.502 0 0 .502 0 1.125v21.75C0 23.498.502 24 1.125 24h21.75c.623 0 1.125-.502 1.125-1.125V1.125C24 .502 23.498 0 22.875 0zm17.363 9.75c.612 0 1.154.037 1.627.111a6.38 6.38 0 0 1 1.306.34v2.458a3.95 3.95 0 0 0-.643-.361 5.093 5.093 0 0 0-.717-.26 5.453 5.453 0 0 0-1.426-.2c-.3 0-.573.028-.819.086a2.1 2.1 0 0 0-.623.242c-.17.104-.3.229-.393.374a.888.888 0 0 0-.14.49c0 .196.053.373.156.529.104.156.252.304.443.444s.423.276.696.41c.273.135.582.274.926.416.47.197.892.407 1.266.628.374.222.695.473.963.753.268.279.472.598.614.957.142.359.214.776.214 1.253 0 .657-.125 1.21-.373 1.656a3.033 3.033 0 0 1-1.012 1.085 4.38 4.38 0 0 1-1.487.596c-.566.12-1.163.18-1.79.18a9.916 9.916 0 0 1-1.84-.164 5.544 5.544 0 0 1-1.512-.493v-2.63a5.033 5.033 0 0 0 3.237 1.2c.333 0 .624-.03.872-.09.249-.06.456-.144.623-.25.166-.108.29-.234.373-.38a1.023 1.023 0 0 0-.074-1.089 2.12 2.12 0 0 0-.537-.5 5.597 5.597 0 0 0-.807-.444 27.72 27.72 0 0 0-1.007-.436c-.918-.383-1.602-.852-2.053-1.405-.45-.553-.676-1.222-.676-2.005 0-.614.123-1.141.369-1.582.246-.441.58-.804 1.004-1.089a4.494 4.494 0 0 1 1.47-.629 7.536 7.536 0 0 1 1.77-.201zm-15.113.188h9.563v2.166H9.506v9.646H6.789v-9.646H3.375z"/></svg><span>TypeScript</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"/></svg><span>PostgreSQL</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/></svg><span>iOS</span></li><li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.4395 5.5586c-.675 1.1664-1.352 2.3318-2.0274 3.498-.0366-.0155-.0742-.0286-.1113-.043-1.8249-.6957-3.484-.8-4.42-.787-1.8551.0185-3.3544.4643-4.2597.8203-.084-.1494-1.7526-3.021-2.0215-3.4864a1.1451 1.1451 0 0 0-.1406-.1914c-.3312-.364-.9054-.4859-1.379-.203-.475.282-.7136.9361-.3886 1.5019 1.9466 3.3696-.0966-.2158 1.9473 3.3593.0172.031-.4946.2642-1.3926 1.0177C2.8987 12.176.452 14.772 0 18.9902h24c-.119-1.1108-.3686-2.099-.7461-3.0683-.7438-1.9118-1.8435-3.2928-2.7402-4.1836a12.1048 12.1048 0 0 0-2.1309-1.6875c.6594-1.122 1.312-2.2559 1.9649-3.3848.2077-.3615.1886-.7956-.0079-1.1191a1.1001 1.1001 0 0 0-.8515-.5332c-.5225-.0536-.9392.3128-1.0488.5449zm-.0391 8.461c.3944.5926.324 1.3306-.1563 1.6503-.4799.3197-1.188.0985-1.582-.4941-.3944-.5927-.324-1.3307.1563-1.6504.4727-.315 1.1812-.1086 1.582.4941zM7.207 13.5273c.4803.3197.5506 1.0577.1563 1.6504-.394.5926-1.1038.8138-1.584.4941-.48-.3197-.5503-1.0577-.1563-1.6504.4008-.6021 1.1087-.8106 1.584-.4941z"/></svg><span>Android</span></li></ul></div>
+      <a class="btn b3d wide signal" href="mailto:info@nestoranalytics.hu?subject=Jelentkez%C3%A9s&amp;body=Min%20dolgozom%20most%3A%0A%0A%0AEgy%20projekt%2C%20amire%20b%C3%BCszke%20vagyok%20%28link%29%3A%0A%0A%0AAmi%20mostan%C3%A1ban%20foglalkoztat%3A%0A%0A">Írok nektek <i class="tri" aria-hidden="true"></i></a>
+    </div>
+  </article>
+</section>
+
+<div class="spacer"><i style="left:0;width:80px"></i><i style="left:160px;width:58px" class="b"></i><i style="right:0;width:100px"></i></div>
+
+<!-- ============ INTERCEPT ============ -->
+<section class="panel ixpanel" id="intercept" aria-labelledby="h-ix">
+  <p class="ix-lede rv">A saját termékünk, a fent leírtak mind ebben futnak. Minden beérkező cikket, posztot és videót aszerint pontoz, mennyire fontos a te cégednek.</p>
+  <div class="ix rv">
+    <canvas class="ix-field" aria-hidden="true"></canvas>
+    <div class="ix-top">
+      <img class="ix-logo" src="assets/intercept-logo-white.svg" alt="Intercept">
+      <a class="ix-site" href="https://interceptnews.ai" target="_blank" rel="noopener">interceptnews.ai ↗</a>
+    </div>
+    <h2 class="ix-h" id="h-ix">Globális<br>médiafigyelés<br>kulcsszavakon túl.</h2>
+    <div class="ix-bottom">
+      <p>Kommunikációs, kockázatkezelési és vezetői csapatoknak. Az Interceptet a cégedre szabva állítjuk be: minden hírt elolvas, és mindegyiket pontozza aszerint, mennyire releváns neked.</p>
+      <a class="ix-pill" href="mailto:info@nestoranalytics.hu?subject=Intercept%20dem%C3%B3">Kérj demót <svg class="px-arrow" viewBox="0 0 19 19" width="17" height="17" aria-hidden="true"><path d="M4 0h3v3h-3zM8 0h3v3h-3zM12 0h3v3h-3zM16 0h3v3h-3zM12 4h3v3h-3zM16 4h3v3h-3zM8 8h3v3h-3zM16 8h3v3h-3zM4 12h3v3h-3zM16 12h3v3h-3zM0 16h3v3h-3z"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"><i style="left:0;width:72px"></i><i style="left:150px;width:60px" class="b"></i><i style="right:0;width:110px"></i></div>
+
+<!-- ============ CLOSING ============ -->
+<section class="panel cl" id="kapcsolat" aria-labelledby="h-cta">
+  <div class="cl-content">
+    <span class="eyebrow soft cl-eyebrow">Beszéljünk</span>
+    <h2 id="h-cta" class="cl-heading">Mesélj a
+projektedről.</h2>
+    <div class="cl-ctas">
+      <a class="btn b3d" href="mailto:info@nestoranalytics.hu?subject=Fejleszt%C3%A9s">Fejlesztést kérnék <i class="tri" aria-hidden="true"></i></a>
+      <a class="btn b3d line" href="mailto:info@nestoranalytics.hu?subject=Tan%C3%A1csad%C3%A1s">Időpontot kérek <i class="tri" aria-hidden="true"></i></a>
+    </div>
+  </div>
+  <div class="cl-visual">
+    <div class="cl-scene" aria-hidden="true"><canvas id="ribbon"></canvas></div>
+    <dl class="cl-metrics">
+      <div class="cl-metric"><dt class="cl-label"><span class="cl-index" aria-hidden="true">001</span><span class="cl-desc">Éjjel-nappal fut az Intercept</span></dt><dd class="cl-value">24/7</dd></div>
+      <div class="cl-metric"><dt class="cl-label"><span class="cl-index" aria-hidden="true">002</span><span class="cl-desc">A tervezéstől az üzemeltetésig</span></dt><dd class="cl-value">1 csapat</dd></div>
+      <div class="cl-metric"><dt class="cl-label"><span class="cl-index" aria-hidden="true">003</span><span class="cl-desc">Leállás frissítéskor</span></dt><dd class="cl-value">0 perc</dd></div>
+    </dl>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="fcols">
+    <div><span class="fl">A cég</span><ul><li><a href="#megoldasok">Fejlesztés</a></li><li><a href="#elveink">Elveink</a></li><li><a href="#tanacsadas">Tanácsadás</a></li><li><a href="#csatlakozz">Csatlakozz</a></li><li><a href="#intercept">Intercept</a></li></ul></div>
+    <div><span class="fl">Beszéljünk</span><ul><li><a href="mailto:info@nestoranalytics.hu">info@nestoranalytics.hu</a></li><li><a href="mailto:info@nestoranalytics.hu?subject=Fejleszt%C3%A9s">Fejlesztést kérnék</a></li><li><a href="mailto:info@nestoranalytics.hu?subject=Tan%C3%A1csad%C3%A1s">Időpontot kérek</a></li></ul><p class="fnote">1 munkanapon belül válaszolunk.</p></div>
+    <div><span class="fl">Jogi</span><ul><li><a href="impresszum.html">Impresszum</a></li><li><a href="impresszum.html#adatkezeles">Adatkezelés</a></li></ul></div>
+    <div><span class="fl">Termékünk</span><ul><li><a href="https://interceptnews.ai" target="_blank" rel="noopener">interceptnews.ai ↗</a></li></ul></div>
+  </div>
+  <div class="fbar"><span class="live"><i></i>Az Intercept éjjel-nappal fut</span></div>
+  <div class="giant" aria-hidden="true"><span class="word" id="giantWord"><svg class="pm"></svg><span class="lc">nestor</span><svg class="pa"></svg></span></div>
+  <div class="fbar end"><span>© 2026 Nestor Analytics Kft.</span></div>
+  <div class="stripe" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 </footer>
 
-<script>
-/* ---------- pixel wordmark ---------- */
-const G={
- A:["01110","10001","10001","11111","10001","10001"],
- N:["10001","11001","10101","10011","10001","10001"],
- L:["10000","10000","10000","10000","10000","11111"],
- Y:["10001","10001","01010","00100","00100","00100"],
- T:["11111","00100","00100","00100","00100","00100"],
- I:["111","010","010","010","010","111"],
- C:["01111","10000","10000","10000","10000","01111"],
- S:["01111","10000","01110","00001","00001","11110"]
-};
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-const NS='http://www.w3.org/2000/svg';
-/* The mark is the original Nestor logo, unchanged. Its artwork is already a pixel grid:
-   with s = frame stroke, the frame is 6s × 6s with a 4s hole, the tail is a 2s square hanging
-   diagonally off the bottom-right corner, and the small square is 1s, at column 8, row 5.
-   The letters use the same cell, 6 rows tall, so the frame is exactly the x-height. */
-const MARK=[];
-const RING=[];for(let x=0;x<6;x++)RING.push([x,0]);for(let y=1;y<6;y++)RING.push([5,y]);for(let x=4;x>=0;x--)RING.push([x,5]);for(let y=4;y>0;y--)RING.push([0,y]);
-RING.forEach(([x,y])=>MARK.push([x,y,1,'ring']));
-MARK.push([6,6,2,'tail']);MARK.push([8,5,1,'emit']);
-function cellsFor(word){const out=[];let x=0;
-  for(const ch of word){const g=G[ch];g.forEach((row,y)=>[...row].forEach((b,i)=>{if(b==='1')out.push([x+i,y,1])}));x+=g[0].length+1}
-  return {cells:out,w:x-1,h:6}}
-function draw(svg,cells,w,h){const rs=[];
-  cells.forEach(([x,y,s,c])=>{const r=document.createElementNS(NS,'rect');
-    r.setAttribute('x',x-.03);r.setAttribute('y',y-.03);r.setAttribute('width',s+.06);r.setAttribute('height',s+.06);
-    if(c)r.classList.add(c);svg.appendChild(r);rs.push(r)});
-  svg.setAttribute('viewBox',`0 0 ${w} ${h}`);return rs}
-const AN=cellsFor('ANALYTICS');
-document.querySelectorAll('.word').forEach(wd=>{
-  wd._m=draw(wd.querySelector('.pm'),MARK,9,8);
-  wd._a=draw(wd.querySelector('.pa'),AN.cells,AN.w,AN.h);
-});
-
-/* Hero: a quiet fade-in, then the cursor lights up the pixels it passes over. */
-(function(){
-  const hero=document.querySelector('.hero .word');
-  if(!reduce){
-    hero.style.opacity=0;hero.style.transform='translateY(6px)';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{hero.style.transition='opacity .6s var(--ease), transform .6s var(--ease)';hero.style.opacity=1;hero.style.transform='none'}));
-  }
-  /* Pointer: every pixel within reach lights up in one of the page colours and fades back
-     on its own clock, so moving the cursor leaves a short multi-coloured trail. */
-  const CL=['c1','c2','c3','c4','c5','c6'],pick=()=>CL[Math.random()*CL.length|0];
-  const light=(r,ms)=>{CL.forEach(c=>r.classList.remove(c));r.classList.add(pick(),'hot');requestAnimationFrame(()=>r.classList.remove('hot'));clearTimeout(r._t);r._t=setTimeout(()=>CL.forEach(c=>r.classList.remove(c)),ms)};
-  const svgs=[...hero.querySelectorAll('svg')];
-  document.querySelector('.hero').addEventListener('pointermove',e=>{
-    for(const svg of svgs){
-      const b=svg.getBoundingClientRect(),vb=svg.viewBox.baseVal,k=vb.width/b.width;
-      if(e.clientX<b.left-60||e.clientX>b.right+60||e.clientY<b.top-60||e.clientY>b.bottom+60)continue;
-      const ux=(e.clientX-b.left)*k,uy=(e.clientY-b.top)*k;
-      svg.querySelectorAll('rect:not(.tail)').forEach(r=>{
-        const w=+r.getAttribute('width'),dx=+r.getAttribute('x')+w/2-ux,dy=+r.getAttribute('y')+w/2-uy,d2=dx*dx+dy*dy;
-        if(d2<7.5&&(d2<2.5||Math.random()<.55))light(r,380+Math.random()*520);
-      });
-    }
-  });
-  if(reduce)return;
-  /* Now and then a pixel of the logo lights up on its own, only while the hero is on screen. */
-  const pool=[...hero.querySelectorAll('rect:not(.tail)')];
-  let onScreen=true;
-  new IntersectionObserver(es=>{onScreen=es[0].isIntersecting},{threshold:0}).observe(document.querySelector('.hero'));
-  (function tick(){
-    if(onScreen&&!document.hidden){light(pool[Math.random()*pool.length|0],600);if(Math.random()<.35)light(pool[Math.random()*pool.length|0],600)}
-    setTimeout(tick,420+Math.random()*700);
-  })();
-})();
-
-/* ---------- pixel graphic (consulting card) ----------
-   Three thin, wandering strands on the left converge into one straight blue line that ends
-   in an arrow: a team that is stuck, and the direction it gets. The strands drift slowly. */
-(function(){
-  const svg=document.querySelector('.route');if(!svg)return;
-  const NSS='http://www.w3.org/2000/svg',W=34,H=15,MID=7,SPLIT=20;
-  const strands=[{a:5.5,f:.33,p:0,c:'t1'},{a:4.5,f:.41,p:2.2,c:'t2'},{a:6,f:.27,p:4.4,c:''}];
-  let t=0,dot=0;
-  const put=(x,y,c)=>{const r=document.createElementNS(NSS,'rect');r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',1.02);r.setAttribute('height',1.02);if(c)r.setAttribute('class',c);svg.appendChild(r)};
-  function draw(){
-    svg.textContent='';
-    strands.forEach(st=>{
-      for(let x=0;x<SPLIT;x++){
-        const k=Math.pow(1-x/SPLIT,1.25);                   // the wander fades out towards the joint
-        const y=Math.round(MID+st.a*k*Math.sin(st.f*x+st.p+t));
-        put(x,Math.max(0,Math.min(H-1,y)),st.c);
-      }
-    });
-    for(let x=SPLIT;x<W-1;x++)put(x,MID,'ln');
-    [[W-1,MID],[W-2,MID-1],[W-2,MID+1],[W-3,MID-2],[W-3,MID+2]].forEach(([x,y])=>put(x,y,'ln'));  // chevron
-    if(!reduce)put(SPLIT+(dot%(W-1-SPLIT)),MID,'dot');
-  }
-  draw();
-  if(!reduce)setInterval(()=>{if(document.hidden)return;t+=.12;dot++;draw()},140);
-})();
-
-/* ---------- pixel icons for the work cards (12×12 cells, drawn at 24 px: 2 px per cell) ----------
-   k ink · b blue · c cyan · l light blue · p mid blue · g grey · . white */
-const ICONS={
- // 01 design & development: a wireframe, code, a launch
- plan:   ['............','.kkkkkkkkkk.','.kbbbbbbbbk.','.kkkkkkkkkk.','.k..k.....k.','.k..k.lll.k.','.k..k.....k.','.k..k.ll..k.','.k..k.....k.','.k..k.lll.k.','.kkkkkkkkkk.','............'],
- code:   ['............','.......b....','...kk.bkk...','..kk..b.kk..','.kk...b..kk.','kk...b....kk','kk...b....kk','.kk..b...kk.','..kkb...kk..','...kk..kk...','....b.......','............'],
- rocket: ['.....kk.....','....kbbk....','....kbbk....','...kbccbk...','...kbccbk...','...kbbbbk...','..kkbbbbkk..','.k.kbbbbk.k.','.k.kkkkkk.k.','....cccc....','.....cc.....','............'],
- // 02 backend & distributed systems: a server, connected nodes, a message, a database
- server: ['............','.kkkkkkkkkk.','.k........k.','.k.c.b.gg.k.','.k........k.','.kkkkkkkkkk.','.k........k.','.k.b.c.gg.k.','.k........k.','.kkkkkkkkkk.','..k......k..','............'],
- nodes:  ['............','.kk......kk.','.kk......kk.','...p....p...','....p..p....','.....bb.....','.....bb.....','....p..p....','...p....p...','.kk......kk.','.kk......kk.','............'],
- mail:   ['............','............','.kkkkkkkkkk.','.kk......kk.','.k.k....k.k.','.k..k..k..k.','.k...bb...k.','.k........k.','.kkkkkkkkkk.','............','............','............'],
- db:     ['............','...kkkkkk...','.kkbbbbbbkk.','.k.kkkkkk.k.','.k........k.','.kk......kk.','.k.kkkkkk.k.','.k........k.','.kk......kk.','...kkkkkk...','............','............'],
- // 03 language models in production: a conversation, a filter in front of the expensive model
- chat:   ['............','.kkkkkkkkkk.','.k........k.','.k........k.','.k..b.b.c.k.','.k..b.b.c.k.','.k........k.','.kkkkkkkkkk.','..kk........','..k.........','............','............'],
- funnel: ['............','.kkkkkkkkkk.','..kllllllk..','...kppppk...','....kbbk....','....kbbk....','....kbbk....','....kkkk....','............','.....cc.....','............','............'],
- // 04 machine learning & analysis: a chart, a fit, a confusion matrix
- bars:   ['............','.k..........','.k.......bb.','.k.......bb.','.k....pp.bb.','.k....pp.bb.','.k.ll.pp.bb.','.k.ll.pp.bb.','.k.ll.pp.bb.','.kkkkkkkkkk.','............','............'],
- scatter:['............','.k......k.b.','.k.......b..','.k....k.b...','.k.....b....','.k.k..b.....','.k...b..k...','.k..b.......','.k.b..k.....','.kkkkkkkkkk.','............','............'],
- matrix: null,
- // 05 search & data collection: a lens, the web, a document, speech
- search: ['............','..kkkk......','.kcc..k.....','.kc...k.....','.k....k.....','.k....k.....','..kkkkk.....','......kk....','.......kk...','........kk..','.........kk.','............'],
- globe:  ['............','....kkkk....','..kk.bb.kk..','.k..b..b..k.','.k..b..b..k.','.kbbbbbbbbk.','.k..b..b..k.','.k..b..b..k.','..kk.bb.kk..','....kkkk....','............','............'],
- doc:    ['............','.kkkkk......','.k...kk.....','.k...k.k....','.k...kkkk...','.k.bbbb..k..','.k.......k..','.k.lllll.k..','.k.......k..','.k.lll...k..','.kkkkkkkkk..','............'],
- mic:    ['............','....kkkk....','....kbbk....','....kbbk....','..k.kbbk.k..','..k.kkkk.k..','..k......k..','...kk..kk...','.....kk.....','.....kk.....','...kkkkkk...','............'],
- // 06 infrastructure & operations: a rack, a shell, the cloud
- rack:   ['............','..kkkkkkkk..','..k.ggg.ck..','..kkkkkkkk..','..k.ggg.bk..','..kkkkkkkk..','..k.ggg.ck..','..kkkkkkkk..','..k......k..','..kkkkkkkk..','..k......k..','............'],
- term:   ['............','.kkkkkkkkkk.','.kkkkkkkkkk.','.k........k.','.k.c......k.','.k..c.....k.','.k.c..bbb.k.','.k........k.','.k........k.','.kkkkkkkkkk.','............','............'],
- cloud:  ['............','............','.....kkkk...','...kkllllk..','..klllllllk.','.kllllllllk.','.kllllllllk.','..kkkkkkkk..','............','............','............','............'],
- // 07 web & mobile: a browser, a phone app, a notification
- browser:['............','.kkkkkkkkkk.','.k.c.b.p..k.','.kkkkkkkkkk.','.k........k.','.k.bbbb...k.','.k........k.','.k.llllll.k.','.k.llll...k.','.k........k.','.kkkkkkkkkk.','............'],
- phone:  ['............','...kkkkkk...','...kbbbbk...','...kbccbk...','...kbccbk...','...kbbbbk...','...kbbbbk...','...kbbbbk...','...kkkkkk...','...k.kk.k...','...kkkkkk...','............'],
- bell:   ['............','.....kk..cc.','....kkkk.cc.','...kllllk...','...kllllk...','...kllllk...','..kllllllk..','.kllllllllk.','.kkkkkkkkkk.','.....bb.....','............','............']
-};
-// the confusion matrix is easier to state as values: a strong diagonal, weaker neighbours
-ICONS.matrix=(()=>{const V=[['b','l','.','.','.'],['l','b','l','.','.'],['.','l','b','p','.'],['.','.','p','b','l'],['.','.','.','l','b']];
-  const g=Array.from({length:12},()=>Array(12).fill('.'));
-  V.forEach((row,y)=>row.forEach((v,x)=>{for(let dy=0;dy<2;dy++)for(let dx=0;dx<2;dx++)g[1+y*2+dy][1+x*2+dx]=v}));
-  return g.map(r=>r.join(''))})();
-const ICOL={k:'#121213',b:'#3208EC',c:'#3CF2FF',l:'#C2B5F9',p:'#9984F6',g:'#CBC3D5'};
-function thumb(name){const c=document.createElement('canvas');c.width=c.height=12;const x=c.getContext('2d');
-  ICONS[name].forEach((row,y)=>[...row].forEach((ch,i)=>{if(ICOL[ch]){x.fillStyle=ICOL[ch];x.fillRect(i,y,1,1)}}));
-  c.setAttribute('aria-hidden','true');return c}
-
-/* ---------- Intercept block tile field (20 px tiles, 2 px gaps, faint white on Blue, slow drift) ---------- */
-(function(){
-  const cv=document.querySelector('.ix-field');if(!cv)return;
-  const ctx=cv.getContext('2d'),T=20,G=2,S=T+G;let w,h,cols,rows,seed=[],t=0,dpr=1;
-  const still=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function size(){const r=cv.getBoundingClientRect();dpr=Math.min(2,devicePixelRatio||1);w=r.width;h=r.height;cv.width=w*dpr;cv.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
-    cols=Math.ceil(w/S)+1;rows=Math.ceil(h/S)+1;seed=[];for(let i=0;i<cols*rows;i++)seed.push(Math.random()*6.28)}
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
-      const p=seed[y*cols+x];
-      // two slow waves across the field plus a per-tile phase: a quiet, shifting texture
-      let a=.03+.05*(.5+.5*Math.sin(x*.18+y*.11+t*.6))+.04*(.5+.5*Math.sin(p+t*.9));
-      const hot=x>cols*.72&&y>rows*.38&&y<rows*.52&&Math.sin(p*3+t*.5)>.93;   // a few cyan tiles on the right
-      ctx.fillStyle=hot?'rgba(60,242,255,.85)':`rgba(255,255,255,${a.toFixed(3)})`;
-      ctx.fillRect(x*S,y*S,T,T);
-    }
-  }
-  size();draw();addEventListener('resize',()=>{size();draw()});
-  if(still)return;
-  let vis=false;new IntersectionObserver(e=>{vis=e[0].isIntersecting}).observe(cv);
-  let last=0;(function loop(ts){requestAnimationFrame(loop);if(!vis||ts-last<60)return;last=ts;t+=.03;draw()})(0);
-})();
-
-/* ---------- header nav: mark the section in view ---------- */
-(function(){
-  const links=[...document.querySelectorAll('.bar nav a[href^="#"]')];
-  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
-  function update(){
-    const y=innerHeight*.4;let cur=null;
-    map.forEach((a,id)=>{const el=document.getElementById(id);if(!el)return;const r=el.getBoundingClientRect();if(r.top<=y&&r.bottom>y)cur=a});
-    links.forEach(l=>{const on=l===cur;l.classList.toggle('on',on);on?l.setAttribute('aria-current','true'):l.removeAttribute('aria-current')});
-    const nav=document.querySelector('.bar nav');if(cur&&nav.scrollWidth>nav.clientWidth&&cur!==update.last){update.last=cur;nav.scrollTo({left:cur.offsetLeft-16,behavior:'smooth'})}
-  }
-  addEventListener('scroll',update,{passive:true});update();
-})();
-
-/* ---------- partner pixel field ---------- */
-(function(){
-  const f=document.querySelector('.pfield');if(!f)return;
-  const ROWS=7;let cells=[];
-  function build(){
-    const card=f.parentElement,name=card.querySelector('.pname');
-    const narrow=matchMedia('(max-width:720px)').matches;
-    const avail=narrow?card.clientWidth-48:card.clientWidth-48-name.offsetWidth-48;
-    const cols=Math.max(8,Math.floor((avail+4)/10));
-    f.style.gridTemplateColumns=`repeat(${cols},6px)`;f.textContent='';cells=[];
-    let seed=7;const R=()=>(seed=(seed*16807)%2147483647)/2147483647;
-    for(let i=0;i<cols*ROWS;i++){const c=document.createElement('i');const v=R();c.className=v<.6?'':v<.85?'t1':v<.97?'t2':'t3';f.appendChild(c);cells.push(c)}
-  }
-  build();let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(build,150)});
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  let vis=false;new IntersectionObserver(e=>{vis=e[0].isIntersecting}).observe(f);
-  (function tick(){if(vis&&!document.hidden&&cells.length){const c=cells[Math.random()*cells.length|0],k=Math.random()<.25?'sig':'on';c.classList.add(k);setTimeout(()=>c.classList.remove(k),700)}setTimeout(tick,350+Math.random()*700)})();
-})();
-
-/* ---------- work cards ---------- */
-const WORK=[
- ['Egyedi szoftvertervezés és -fejlesztés','Tervezés','Fejlesztés · üzemeltetés',
-  'Az egészet mi visszük, a tervezéstől az üzemeltetésig. Az Interceptet is ugyanez a csapat építette és tartja karban, a forrásfigyeléstől a mobilappig.',
-  ['architektúra','adatmodellezés','code review','CI/CD'],['plan','code','rocket']],
- ['Backend és elosztott rendszerek','Backend','Pipeline · API',
-  'Üzenetsorokra épülő, aszinkron feldolgozórendszereket tervezünk, amelyek nagy forgalom mellett is kiszámíthatóan működnek. Egy hibás feladat nem állítja meg a többit, és később újra lehet futtatni. Az Intercept is így dolgozza fel a beérkező anyagot, éjjel-nappal.',
-  ['eseményvezérelt architektúra','idempotens feldolgozás','backpressure','PostgreSQL'],['server','nodes','mail','db']],
- ['Nyelvi modellek éles üzemben','LLM','Integráció · költség',
-  'Nyelvi modelleket építünk be éles rendszerekbe úgy, hogy a költség és a válaszidő kézben maradjon. A modell cserélhető, a hívások költsége műveletenként mérhető, és a drága modell csak oda kerül, ahol tényleg szükség van rá. Hosszan, önállóan futó ágenseket is fejlesztünk.',
-  ['LLM-integráció','költségkontroll','modellfüggetlenség','ágensek'],['chat','funnel']],
- ['Gépi tanulás és adatelemzés','ML','Modellek · mérés',
-  'Saját adatokon tanított modelleket fejlesztünk, és mérjük, mennyire pontosak. A tanítás elkülönítve fut az éles adatoktól. Új modellt vagy promptot csak akkor teszünk élesbe, ha valódi adaton jobbnak bizonyult a réginél.',
-  ['osztályozás','kiértékelés','embeddingek','adatelemzés'],['bars','scatter','matrix']],
- ['Keresés és adatgyűjtés','Adat','Keresés · scraping',
-  'Több százezer forrásból gyűjtünk adatot, olyan oldalakról is, amelyeket nehéz automatikusan feldolgozni. Hangot és videót is szöveggé alakítunk. A keresőink a kulcsszavas és a jelentés szerinti keresést kombinálják.',
-  ['web scraping','hibrid keresés','vektoradatbázis','beszédfelismerés'],['search','globe','doc','mic']],
- ['Infrastruktúra és üzemeltetés','DevOps','Felhő · automatizálás',
-  'Az infrastruktúrát kódként kezeljük, a telepítés automatizált, és leállás nélkül frissítünk. Saját monitorozást üzemeltetünk, így minden szolgáltatás állapota, sebessége és hibái egy helyen látszanak.',
-  ['infrastructure as code','zero-downtime deploy','megfigyelhetőség','konténerek'],['rack','term','cloud']],
- ['Web- és mobilalkalmazások','Kliens','Web · iOS · Android',
-  'Webes felületet és natív iOS- és Android-alkalmazást is fejlesztünk, a backendtől a push értesítésig. Az Intercept felülete és mobilappja is nálunk készül.',
-  ['web','iOS','Android','push értesítés'],['browser','phone','bell']]
-];
-const cards=document.getElementById('cards');
-WORK.forEach(([t,k,m,d,stack,seeds],i)=>{
-  const b=document.createElement('button');b.className='card rv';b.setAttribute('aria-expanded','false');
-  b.innerHTML=`<div class="top"><span class="num">${String(i+1).padStart(2,'0')}</span><span class="thumbs"></span></div>
-  <div><h3>${t}</h3><div class="more"><div><p>${d}</p><div class="stack">${stack.map(x=>`<span>${x}</span>`).join("")}</div></div></div></div>
-  <div class="meta"><span>${k}</span><span>·</span><span>${m}</span><span class="plus">+</span></div>`;
-  seeds.forEach(n=>b.querySelector('.thumbs').appendChild(thumb(n)));
-  b.onclick=()=>b.setAttribute('aria-expanded',b.getAttribute('aria-expanded')==='true'?'false':'true');
-  cards.appendChild(b);
-});
-
-/* ---------- principles ---------- */
-const P=[
- ['Amit mi nem használnánk, azt nem adjuk át.','Egy megrendelő projektjén ugyanazokkal az eszközökkel és ugyanolyan alaposan dolgozunk, mint a saját termékünkön.'],
- ['Aki megírja, az üzemelteti is.','Nálunk nincs külön csapat, amelyik átveszi a kódot a fejlesztőtől. Aki egy részt megír, az telepíti és figyeli, és őt keressük, ha valami elromlik. Ettől mindenki olyan kódot ír, amit később ő maga is szívesen javít.'],
- ['Az egyszerű megoldással kezdünk.','Előbb azt építjük meg, ami a legkevesebb mozgó alkatrésszel működik, és csak akkor bonyolítjuk, ha a mérések szerint kell. Egy jól megírt lekérdezés sokszor többet ér egy új szolgáltatásnál.'],
- ['Minden visszakereshető.','Az általunk épített rendszerek naplózzák, mi történt, mikor és miért. Ha valami elromlik vagy lelassul, a naplókból és a mérésekből kiderül, hol akadt el, és nem kell találgatni.'],
- ['Kis csapat.','A megrendelő közvetlenül a fejlesztőkkel beszél, nincs köztünk több réteg. A kérdésekre így gyorsan jön válasz, olyantól, aki ismeri a rendszert.'],
- ['Élesben is működnie kell.','Egy funkciót akkor tekintünk késznek, ha azt is megoldottuk, mi történik hibánál, forgalmi csúcsnál vagy lassulásnál. Az Intercept is így fut nap mint nap.']
-];
-const ROM=['I','II','III','IV','V','VI'],tl=document.getElementById('tl');
-P.forEach(([h,b],i)=>{
-  const s=document.createElement('div');s.className='step'+(i===0?' active':'');
-  const words=b.split(' ').map((w,j)=>`<span style="transition-delay:${j*22}ms">${w}</span>`).join(' ');
-  s.innerHTML=`<span class="badge">${ROM[i]}</span><div><h4>${h}</h4><p class="body">${words}</p></div>`;
-  tl.appendChild(s);
-});
-const steps=[...tl.children];
-function pickStep(){
-  const mid=innerHeight*.5;let best=0,bd=1e9;
-  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+40-mid);if(d<bd){bd=d;best=i}});
-  steps.forEach((s,i)=>s.classList.toggle('active',i===best));
-}
-
-/* ---------- header + reveal ---------- */
-const hdr=document.getElementById('hdr'),word=document.querySelector('.hero .word');
-function onScroll(){hdr.classList.toggle('scrolled',word.getBoundingClientRect().bottom<56);pickStep()}
-addEventListener('scroll',onScroll,{passive:true});onScroll();
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('.rv').forEach((el,i)=>{el.style.transitionDelay=(el.classList.contains('card')||el.classList.contains('pcard')?(i%5)*60:0)+'ms';io.observe(el)});
-</script>
+<script src="icons.js"></script>
+<script src="iso.js"></script>
+<script src="hero.js"></script>
+<script src="cubes.js"></script>
+<script src="bricks.js"></script>
+<script src="app.js"></script>
+<script src="nav.js"></script>
 </body>
 </html>
