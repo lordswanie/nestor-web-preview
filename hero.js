@@ -318,10 +318,12 @@
         faceSide(x0, yt, z0);
         // the same 5×5 tile as the slide's tab icon (1 = light cell, 0 = dark cell)
         const P0 = PRODUCTS[shown], cells = P0.pattern.replace(/\s+/g, '');
-        for (let k = 0; k < 25; k++) {
-          ctx.fillStyle = cells[k] === '1' ? P0.light : P0.dark;
-          ctx.fillRect(5 + (k % 5) * 5, 5 + Math.floor(k / 5) * 5, 5.06, 5.06);
-        }
+        // one dark square, then all light cells as a single path: drawing 25 separate cells on the skewed face
+        // left antialiased seams of uneven width between neighbours
+        ctx.fillStyle = P0.dark; ctx.fillRect(5, 5, 25, 25);
+        ctx.beginPath();
+        for (let k = 0; k < 25; k++) if (cells[k] === '1') ctx.rect(5 + (k % 5) * 5, 5 + Math.floor(k / 5) * 5, 5, 5);
+        ctx.fillStyle = P0.light; ctx.fill();
         ctx.restore();
       }
       // +z face (the "screen")

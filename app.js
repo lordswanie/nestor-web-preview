@@ -172,7 +172,7 @@
   function setWork(i) {
     $$('.ptab', ptabs).forEach((t, j) => t.setAttribute('aria-selected', j === i));
     const [t, k, m, d, stack, ic] = WORK[i];
-    $('#pdTitle').textContent = t;
+    $('#pdTitle').innerHTML = t.replace(/ -(\S+)/, ' <span class="nw">-$1</span>');   // keep '-fejlesztés' on one line with its hyphen
     const pi = $('#pdIcon'); pi.textContent = ''; pi.appendChild(areaTile(i));
     $('#pdText').textContent = d;
     $('#pdMeta').textContent = `${k} · ${m}`;
@@ -207,7 +207,7 @@
       intro: 'Az Intercept felülete és mobilappja is nálunk készül.',
       big: 'Az Interceptet is ugyanez a csapat építette és tartja karban, a forrásfigyeléstől a mobilappig.',
       metrics: [['Architektúra', 'Tervezés'], ['CI/CD', 'Fejlesztés']] },
-    { tab: 'Felelősség', area: WORK[0][0], card: 5, rel: [1, 0, 4], link: ['Fejlesztés', '#megoldasok', 0],
+    { tab: 'Felelősség', area: WORK[0][0], card: 6, rel: [1, 0, 4], link: ['Fejlesztés', '#megoldasok', 0],
       intro: 'Az egészet mi visszük, a tervezéstől az üzemeltetésig.',
       big: 'Az infrastruktúrát kódként kezeljük, a telepítés automatizált, és leállás nélkül frissítünk.',
       metrics: [['Infrastructure as code', 'DevOps'], ['Zero-downtime deploy', 'Frissítés']] },
@@ -232,6 +232,13 @@
   const CUBE_BG = ['#EBEFFF', '#E0E7FF', '#BEF4F6', '#FFDDF0', '#FFE1CF', '#EDEAF2', '#DEEFC8'];
   const LIGHT_CARD = new Set([0, 2, 4, 5, 6]);
   const ARROW = '<svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path class="ap1" d="M10 7L5 2L5 7Z" fill="currentColor"/><path class="ap2" d="M10 7L5 7L5 12Z" fill="currentColor"/></svg>';
+  /* one colour ramp per principle, taken from its card colour, so the drawing on the left and the card on the
+     right read as one piece: deep (text, nodes), main, soft body, pale track, hot (the moving / flagged element) */
+  const ramp = cc => {
+    const hex = CUBE_COL[cc], light = LIGHT_CARD.has(cc), c = hex.match(/\w\w/g).map(h => parseInt(h, 16));
+    const m = (t, to) => '#' + c.map(v => Math.round(v + (to - v) * t).toString(16).padStart(2, '0')).join('');
+    return { deep: m(.7, 0), main: light ? m(.38, 0) : hex, soft: m(.45, 255), pale: m(.68, 255), track: m(.78, 255), hot: light ? hex : m(.4, 255), light };
+  };
   const markSVG = () => { const r = []; RING.forEach(([x, y]) => r.push(`<rect x="${x}" y="${y}" width="1.04" height="1.04"/>`)); r.push('<rect x="6" y="6" width="2.04" height="2.04"/><rect class="emit" x="8" y="5" width="1.04" height="1.04"/>'); return `<svg class="pr-mark" viewBox="0 0 9 8" aria-hidden="true">${r.join('')}</svg>`; };
   const prTabs = $('#prTabs'), prContent = $('#prContent'), prHead = $('#prHead'), prText = $('#prText');
   PR.forEach((p, i) => {
@@ -245,12 +252,12 @@
       <div class="pr-panel" role="tabpanel" id="prp${i}" aria-labelledby="prt${i}" hidden>
         <div class="pr-intro">
           <div class="pr-intro-head"><h3>${LABEL[VIS[i]]}</h3><span class="pr-num">${String(i + 1).padStart(2, '0')} / 06</span></div>
-          <div class="pr-vis" data-pv="${VIS[i]}"><canvas></canvas></div>
+          <div class="pr-vis" data-pv="${VIS[i]}" data-cc="${cc}"><canvas></canvas></div>
           <p>${p.intro}</p>
         </div>
         <figure class="pr-quote">
           <figcaption class="pr-qhead"><span><b>Nestor Analytics</b>, <span>${p.area}</span></span><a class="pr-qlink" href="${p.link[1]}"${p.link[2] != null ? ` data-work="${p.link[2]}"` : ''}>${p.link[0]} <i class="tri" aria-hidden="true"></i></a></figcaption>
-          <div class="pr-inner${light ? ' light' : ''}" style="--qc:${CUBE_COL[cc]}">
+          <div class="pr-inner${light ? ' light' : ''}" style="--qc:${CUBE_COL[cc]};--qd:${ramp(cc).deep};--qt:${ramp(cc).pale}">
             <blockquote>${p.big}</blockquote>
             <div class="pr-bottom">
               <dl class="pr-metrics">${p.metrics.map(([v, l]) => `<div><dt>${l}</dt><dd>${v}</dd></div>`).join('')}</dl>
@@ -266,7 +273,7 @@
     prContent.lastElementChild.dataset.head = `${a}\n${b}`;
     prContent.lastElementChild.dataset.text = body;
   });
-  $$('[data-res-icon]', prContent).forEach(el => el.appendChild(iconCanvas(el.dataset.resIcon)));
+  $$('[data-res-icon]', prContent).forEach(el => el.appendChild(areaTile(+el.closest('[data-work]').dataset.work)));
   let prActive = -1;
   function setPrinciple(i, focus) {
     if (i === prActive) return; prActive = i;
@@ -288,7 +295,7 @@
   });
 
   /* principle illustrations: pixel drawings on a 8 px grid, running while visible */
-  const C = { ink: '#121213', blue: '#3208EC', cyan: '#3CF2FF', b3: '#C2B5F9', b5: '#9984F6', g: '#CBC3D5', g2: '#E3DDEB', w: '#FFFFFF' };
+  let C = { ink: '#121213', blue: '#3208EC', cyan: '#3CF2FF', b3: '#C2B5F9', b5: '#9984F6', g: '#CBC3D5', g2: '#E3DDEB', w: '#FFFFFF' };
   const DRAW = {
     twin(x, W, H, t) {
       const cs = 10, cols = 5, rows = 9, gx = W / 2;
@@ -384,6 +391,7 @@
   function startVis(el) {
     if (visRun) visRun.stop = true;
     const kind = el.dataset.pv, cv = $('canvas', el), x = cv.getContext('2d');
+    if (el.dataset.cc != null) { const R = ramp(+el.dataset.cc); C = { ink: R.deep, blue: R.main, cyan: R.hot, b3: R.pale, b5: R.soft, g: R.track, g2: R.track, w: '#FFFFFF' }; }
     const run = { stop: false }; visRun = run;
     let vis = true, W = 0, H = 0, dpr = 1; const t0 = performance.now();
     const fit = () => { const r = cv.getBoundingClientRect(); dpr = Math.min(2, devicePixelRatio || 1); W = r.width; H = r.height; cv.width = W * dpr; cv.height = H * dpr; };
